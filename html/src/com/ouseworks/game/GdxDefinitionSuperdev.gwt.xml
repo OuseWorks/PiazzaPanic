@@ -3,7 +3,7 @@
 <module rename-to="html">
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 
-    <inherits name='com.mygdx.game.GdxDefinition' />
+    <inherits name='com.ouseworks.game.GdxDefinition' />
     
     <collapse-all-properties />
     

@@ -1,9 +1,9 @@
-package com.mygdx.game.client;
+package com.ouseworks.game.client;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.mygdx.game.PiazzaPanic;
+import com.ouseworks.game.PiazzaPanic;
 
 public class HtmlLauncher extends GwtApplication {
 
