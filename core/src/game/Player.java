@@ -12,7 +12,7 @@ public class Player {
     private int speed;
     
     public Player() {
-        position = new Position(20, 20);
+        position = new Position(800, 400);
         sprite = new Sprite("chef.png");
         speed = 100;
     }
