@@ -6,12 +6,12 @@ import game.Sprite;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
-public class Player {
+public class Chef {
     private Position position;
     private Sprite sprite;
     private int speed;
     
-    public Player() {
+    public Chef() {
         position = new Position(800, 400);
         sprite = new Sprite("chef.png");
         speed = 250;

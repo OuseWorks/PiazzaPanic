@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -12,8 +11,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 
+import game.Chef;
 import game.piazzapanic.PiazzaPanicGame;
-import game.Player;
 
 public class GameScreen implements Screen {
     final PiazzaPanicGame game;
@@ -21,9 +20,7 @@ public class GameScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
-    private SpriteBatch batch;
-    
-    private Player player;
+    private Chef currentChef;
 
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
@@ -35,15 +32,14 @@ public class GameScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
 
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        batch.draw(player.getSprite(), player.getX(), player.getY());
-        batch.end();
+        this.game.batch.begin();
+        this.game.batch.draw(currentChef.getSprite(), currentChef.getX(), currentChef.getY());
+        this.game.batch.end();
 
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)) { player.moveUp(); }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) { player.moveDown(); }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) { player.moveLeft(); }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) { player.moveRight(); }
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)) { currentChef.moveUp(); }
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) { currentChef.moveDown(); }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) { currentChef.moveLeft(); }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) { currentChef.moveRight(); }
     }
 
     @Override
@@ -63,9 +59,9 @@ public class GameScreen implements Screen {
         map = new TmxMapLoader().load("map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
+        Chef chef1 = new Chef();
+        this.currentChef = chef1;
 
-        batch = new SpriteBatch();
-        player = new Player();
     }
 
     @Override
