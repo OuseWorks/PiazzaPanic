@@ -8,9 +8,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 
 import game.piazzapanic.PiazzaPanicGame;
 import game.Player;
@@ -32,8 +34,6 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        camera.position.x = 15;
-        camera.update();
         renderer.setView(camera);
         renderer.render();
 
@@ -52,7 +52,12 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         camera.viewportWidth = width;
         camera.viewportHeight = height;
+        TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
+        Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2,
+                layer0.getHeight() * layer0.getTileHeight() / 2, 0);
+        camera.position.set(center);
         camera.update();
+
     }
 
     @Override
