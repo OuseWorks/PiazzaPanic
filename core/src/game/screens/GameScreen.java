@@ -5,9 +5,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.math.Vector3;
 
 import game.piazzapanic.PiazzaPanicGame;
 
@@ -32,8 +33,10 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         camera.viewportWidth = width;
         camera.viewportHeight = height;
-        camera.position.set(camera.viewportWidth / 2, camera.viewportHeight / 2, 0);
-
+        TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
+        Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2,
+                layer0.getHeight() * layer0.getTileHeight() / 2, 0);
+        camera.position.set(center);
         camera.update();
 
     }
