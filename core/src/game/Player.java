@@ -1,50 +1,47 @@
 package game;
 
+import game.Position;
+import game.Sprite;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Rectangle;
 
 public class Player {
-    private Texture sprite;
-    private Rectangle rect;
+    private Position position;
+    private Sprite sprite;
     private int speed;
     
     public Player() {
-        sprite = new Texture(Gdx.files.internal("chef.png"));
-        rect = new Rectangle();
-        rect.x = 20;
-        rect.x = 20;
-        rect.width = 64;
-        rect.height = 64;
-        
+        position = new Position(20, 20);
+        sprite = new Sprite("chef.png");
         speed = 100;
     }
 
     public Texture getSprite() {
-        return sprite;
+        return sprite.getSprite();
     }
 
     public float getX() {
-        return rect.x;
+        return position.getX();
     }
 
     public float getY() {
-        return rect.y;
+        return position.getY();
     }
     
     public void moveUp() {
-        rect.y += speed * Gdx.graphics.getDeltaTime();
+        position.moveUp(speed * Gdx.graphics.getDeltaTime());
     }
 
     public void moveDown() {
-        rect.y -= speed * Gdx.graphics.getDeltaTime();
+        position.moveDown(speed * Gdx.graphics.getDeltaTime());
     }
 
     public void moveLeft() {
-        rect.x -= speed * Gdx.graphics.getDeltaTime();
+        position.moveLeft(speed * Gdx.graphics.getDeltaTime());
     }
 
     public void moveRight() {
-        rect.x += speed * Gdx.graphics.getDeltaTime();
+        position.moveRight(speed * Gdx.graphics.getDeltaTime());
     }
 }
