@@ -14,7 +14,7 @@ public class Player {
     public Player() {
         position = new Position(800, 400);
         sprite = new Sprite("chef.png");
-        speed = 100;
+        speed = 250;
     }
 
     public Texture getSprite() {
