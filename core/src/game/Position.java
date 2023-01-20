@@ -9,6 +9,7 @@ public class Position {
     private Rectangle rect;
     
     public Position(float x, float y) {
+        rect = new Rectangle();
         rect.width = 64;
         rect.height = 64;
 
@@ -25,19 +26,22 @@ public class Position {
     }
 
     public void moveUp(float amount) {
-        x += amount;
+        y += amount;
         rect.y += amount;
     }
 
     public void moveDown(float amount) {
+        y -= amount;
         rect.y -= amount;
     }
 
     public void moveLeft(float amount) {
+        x -= amount;
         rect.x -= amount;
     }
 
     public void moveRight(float amount) {
+        x += amount;
         rect.x += amount;
     }
 }
