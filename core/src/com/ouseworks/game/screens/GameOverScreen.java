@@ -1,18 +1,18 @@
-package game.screens;
+package com.ouseworks.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-import game.piazzapanic.PiazzaPanicGame;
+import com.ouseworks.game.PiazzaPanicGame;
 
-public class MainMenuScreen implements Screen {
+public class GameOverScreen implements Screen {
 
     final PiazzaPanicGame game;
     OrthographicCamera camera;
 
-    public MainMenuScreen(final PiazzaPanicGame game) {
+    public GameOverScreen(final PiazzaPanicGame game) {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -37,8 +37,7 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to Piazza Panic!!! ", 100, 150);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
+        game.font.draw(game.batch, "Game Over!", 100, 100);
         game.batch.end();
 
         if (Gdx.input.isTouched()) {
