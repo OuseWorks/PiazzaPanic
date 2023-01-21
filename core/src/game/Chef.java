@@ -1,5 +1,6 @@
 package game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -9,7 +10,7 @@ public class Chef {
     public int speed;
 
     public Chef() {
-        this.texture = new Texture("chef.png");
+        this.texture = new Texture(Gdx.files.internal("chef.png"));
         this.sprite = new Sprite(texture);
         this.speed = 200;
         sprite.setPosition(10, 10);
