@@ -31,21 +31,6 @@ public class GameScreen implements Screen {
         renderer.render();
 
         game.engine.update(delta);
-
-        //this.game.batch.begin();
-        //currentChef.sprite.draw(this.game.batch);
-        //this.game.batch.end();
-        /*
-        if (Gdx.input.isKeyPressed(Keys.RIGHT))
-            currentChef.sprite.setX(currentChef.sprite.getX() + (Gdx.graphics.getDeltaTime()) * currentChef.speed);
-        if (Gdx.input.isKeyPressed(Keys.LEFT))
-            currentChef.sprite.setX(currentChef.sprite.getX() - (Gdx.graphics.getDeltaTime()) * currentChef.speed);
-        if (Gdx.input.isKeyPressed(Keys.UP))
-            currentChef.sprite.setY(currentChef.sprite.getY() + (Gdx.graphics.getDeltaTime()) * currentChef.speed);
-        if (Gdx.input.isKeyPressed(Keys.DOWN))
-            currentChef.sprite.setY(currentChef.sprite.getY() - (Gdx.graphics.getDeltaTime()) * currentChef.speed);
-
-         */
     }
 
     @Override
@@ -64,12 +49,8 @@ public class GameScreen implements Screen {
     public void show() {
         map = new TmxMapLoader().load("map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
-        System.out.println("I want to see the kitchen");
         camera = new OrthographicCamera();
         game.engine.addSystem(new RenderEntitySystem(camera,game.batch));
-
-        // Chef chef1 = new Chef();
-        //this.currentChef = chef1;
 
     }
 

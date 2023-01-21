@@ -12,6 +12,7 @@ public class EntityFactory {
         this.engine=engine;
     }
 
+    // TODO Explore possibility of creating config files to store the description of entities.
     public void createCook1(){
         final Entity cook1 = engine.createEntity();
         cook1.add(engine.createComponent(PositionComponent.class));
