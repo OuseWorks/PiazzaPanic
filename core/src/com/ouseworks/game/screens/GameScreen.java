@@ -18,8 +18,6 @@ public class GameScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
 
-    //private Chef currentChef;
-
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
         EntityFactory entityFactory = new EntityFactory(game.engine);
@@ -29,8 +27,6 @@ public class GameScreen implements Screen {
     }
 
     public void render(float delta) {
-        //Gdx.gl.glClearColor(0, 0, 0, 1);
-        //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.setView(camera);
         renderer.render();
 
