@@ -29,8 +29,8 @@ public class GameScreen implements Screen {
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
         EntityFactory entityFactory = new EntityFactory(game.engine);
-        entityFactory.createCook(300,400,10,"Chef1.png");
-        entityFactory.createCook(200,500,10,"Chef2.png");
+        entityFactory.createCook(300,400,200,"Chef1.png");
+        entityFactory.createCook(200,500,200,"Chef2.png");
         entityFactory.createCustomer(600,600,game.engine.getEntities().get(0),"Item.png");
     }
 
