@@ -1,5 +1,6 @@
 package com.ouseworks.game.screens;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -21,8 +22,9 @@ public class GameScreen implements Screen {
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
         EntityFactory entityFactory = new EntityFactory(game.engine);
-        entityFactory.createCook1();
-        entityFactory.createCook2();
+        entityFactory.createCook(300,400,"Chef1.png");
+        entityFactory.createCook(200,500,"Chef2.png");
+        entityFactory.createCustomer(600,600,game.engine.getEntities().get(0),"Item.png");
 
     }
 
@@ -51,7 +53,6 @@ public class GameScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
         game.engine.addSystem(new RenderEntitySystem(camera,game.batch));
-
     }
 
     @Override

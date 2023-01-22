@@ -2,8 +2,7 @@ package com.ouseworks.game;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Engine;
-import com.ouseworks.game.components.PositionComponent;
-import com.ouseworks.game.components.RenderComponent;
+import com.ouseworks.game.components.*;
 
 public class EntityFactory {
 
@@ -13,28 +12,36 @@ public class EntityFactory {
     }
 
     // TODO Explore possibility of creating config files to store the description of entities.
-    public void createCook1(){
-        final Entity cook1 = engine.createEntity();
-        cook1.add(engine.createComponent(PositionComponent.class));
-        cook1.add(engine.createComponent(RenderComponent.class));
-        // Set cook1 spawn location.
-        cook1.getComponent(PositionComponent.class).x=300;
-        cook1.getComponent(PositionComponent.class).y=300;
-        // Set cook1 sprite image
-        cook1.getComponent(RenderComponent.class).visual="Chef1.png";
-        engine.addEntity(cook1);
+    public void createCook(int x, int y, String img){
+        final Entity cook = engine.createEntity();
+        cook.add(engine.createComponent(PositionComponent.class));
+        cook.add(engine.createComponent(RenderComponent.class));
+        cook.add(engine.createComponent(ClickableComponent.class));
+        cook.add(engine.createComponent(InventoryComponent.class));
+        cook.add(engine.createComponent(BusyComponent.class));
+        // Set cook spawn location.
+        cook.getComponent(PositionComponent.class).x=x;
+        cook.getComponent(PositionComponent.class).y=y;
+        // Set cook sprite image
+        cook.getComponent(RenderComponent.class).visual=img;
+        engine.addEntity(cook);
 
     }
 
-    public void createCook2(){
-        final Entity cook2 = engine.createEntity();
-        cook2.add(engine.createComponent(PositionComponent.class));
-        cook2.add(engine.createComponent(RenderComponent.class));
-        // Set cook2 spawn location.
-        cook2.getComponent(PositionComponent.class).x=100;
-        cook2.getComponent(PositionComponent.class).y=100;
-        // Set cook2 sprite image
-        cook2.getComponent(RenderComponent.class).visual="Chef2.png";
-        engine.addEntity(cook2);
+    public void createCustomer(int x, int y, Entity orderPlaced, String img){
+        final Entity customer = engine.createEntity();
+        customer.add(engine.createComponent(PositionComponent.class));
+        customer.add(engine.createComponent(RenderComponent.class));
+        customer.add(engine.createComponent(OrderComponent.class));
+        customer.add(engine.createComponent(BusyComponent.class));
+        // Set customer spawn location.
+        customer.getComponent(PositionComponent.class).x=100;
+        customer.getComponent(PositionComponent.class).y=100;
+        // Set customer sprite image
+        customer.getComponent(RenderComponent.class).visual=img;
+        // Set customer order
+        customer.getComponent(OrderComponent.class).orderPlaced=orderPlaced;
+        engine.addEntity(customer);
     }
+
 }
