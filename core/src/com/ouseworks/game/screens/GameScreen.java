@@ -1,5 +1,6 @@
 package com.ouseworks.game.screens;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.ouseworks.game.EntityFactory;
 import com.ouseworks.game.TopHud;
 import com.ouseworks.game.systems.RenderEntitySystem;
+import com.ouseworks.game.systems.MoveEntitySystem;
 import com.ouseworks.game.PiazzaPanicGame;
 
 public class GameScreen implements Screen {
@@ -30,6 +32,7 @@ public class GameScreen implements Screen {
         entityFactory.createCook(300,400,"Chef1.png");
         entityFactory.createCook(200,500,"Chef2.png");
         entityFactory.createCustomer(600,600,game.engine.getEntities().get(0),"Item.png");
+
     }
 
     public void render(float delta) {
@@ -50,6 +53,7 @@ public class GameScreen implements Screen {
                 layer0.getHeight() * layer0.getTileHeight() / 2, 0);
         camera.position.set(center);
         camera.update();
+
     }
 
     @Override
@@ -57,7 +61,9 @@ public class GameScreen implements Screen {
         map = new TmxMapLoader().load("map.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
+
         game.engine.addSystem(new RenderEntitySystem(camera,game.batch));
+        game.engine.addSystem(new MoveEntitySystem());
         hud = new TopHud(game.batch,500);
 
     }
