@@ -29,10 +29,9 @@ public class GameScreen implements Screen {
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
         EntityFactory entityFactory = new EntityFactory(game.engine);
-        entityFactory.createCook(300,400,"Chef1.png");
-        entityFactory.createCook(200,500,"Chef2.png");
+        entityFactory.createCook(300,400,10,"Chef1.png");
+        entityFactory.createCook(200,500,10,"Chef2.png");
         entityFactory.createCustomer(600,600,game.engine.getEntities().get(0),"Item.png");
-
     }
 
     public void render(float delta) {
@@ -65,7 +64,6 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new RenderEntitySystem(camera,game.batch));
         game.engine.addSystem(new MoveEntitySystem());
         hud = new TopHud(game.batch,500);
-
     }
 
     @Override
