@@ -12,20 +12,26 @@ public class EntityFactory {
     }
 
     // TODO Explore possibility of creating config files to store the description of entities.
-    public void createCook(int x, int y, String img){
+    public void createCook(int x, int y, int speed, String img){
         final Entity cook = engine.createEntity();
         cook.add(engine.createComponent(PositionComponent.class));
         cook.add(engine.createComponent(RenderComponent.class));
+        cook.add(engine.createComponent(MoveableComponent.class));
         cook.add(engine.createComponent(ClickableComponent.class));
         cook.add(engine.createComponent(InventoryComponent.class));
         cook.add(engine.createComponent(BusyComponent.class));
+
         // Set cook spawn location.
         cook.getComponent(PositionComponent.class).x=x;
         cook.getComponent(PositionComponent.class).y=y;
+
         // Set cook sprite image
         cook.getComponent(RenderComponent.class).visual=img;
-        engine.addEntity(cook);
 
+        // Set cook movement speed
+        cook.getComponent(MoveableComponent.class).speed = speed;
+
+        engine.addEntity(cook);
     }
 
     public void createCustomer(int x, int y, Entity orderPlaced, String img){
