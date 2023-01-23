@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector3;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.ouseworks.game.EntityFactory;
+import com.ouseworks.game.OrderHud;
 import com.ouseworks.game.TopHud;
 import com.ouseworks.game.systems.RenderEntitySystem;
 import com.ouseworks.game.systems.MoveEntitySystem;
@@ -22,6 +23,7 @@ public class GameScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
     private TopHud hud;
+    private OrderHud orderHud;
     private Stage stage;
 
 
@@ -36,11 +38,13 @@ public class GameScreen implements Screen {
 
     public void render(float delta) {
         hud.update(delta);
+        orderHud.update(delta);
         renderer.setView(camera);
         renderer.render();
         game.engine.update(delta);
-        //game.batch.setProjectionMatrix(hud.stage.getCamera().combined); //set the spriteBatch to draw what our stageViewport sees
+        //game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+        orderHud.stage.draw();
     }
 
     @Override
@@ -64,6 +68,7 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new RenderEntitySystem(camera,game.batch));
         game.engine.addSystem(new MoveEntitySystem());
         hud = new TopHud(game.batch,500);
+        orderHud = new OrderHud(game.batch);
     }
 
     @Override
