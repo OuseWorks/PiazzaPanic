@@ -39,7 +39,7 @@ public class GameScreen implements Screen {
         renderer.setView(camera);
         renderer.render();
         game.engine.update(delta);
-        game.batch.setProjectionMatrix(hud.stage.getCamera().combined); //set the spriteBatch to draw what our stageViewport sees
+        //game.batch.setProjectionMatrix(hud.stage.getCamera().combined); //set the spriteBatch to draw what our stageViewport sees
         hud.stage.draw();
     }
 
