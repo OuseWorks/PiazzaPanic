@@ -1,7 +1,5 @@
 package com.ouseworks.game.systems;
 
-import java.util.Currency;
-
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
