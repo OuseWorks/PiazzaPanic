@@ -9,7 +9,10 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.ouseworks.game.EntityFactory;
+import com.ouseworks.game.OrderHud;
+import com.ouseworks.game.TopHud;
 import com.ouseworks.game.systems.RenderEntitySystem;
 import com.ouseworks.game.systems.MoveEntitySystem;
 import com.ouseworks.game.PiazzaPanicGame;
@@ -19,21 +22,30 @@ public class GameScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
+    private TopHud hud;
+    private OrderHud orderHud;
+    private Stage stage;
+
+
 
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
         EntityFactory entityFactory = new EntityFactory(game.engine);
-        entityFactory.createCook(300, 400, 200, "Chef1.png");
-        entityFactory.createCook(200, 500, 200, "Chef2.png");
-        entityFactory.createCustomer(600, 600, game.engine.getEntities().get(0), "Item.png");
 
+        entityFactory.createCook(300,400,200,"Chef1.png");
+        entityFactory.createCook(200,500,200,"Chef2.png");
+        entityFactory.createCustomer(600,600,game.engine.getEntities().get(0),"Item.png");
     }
 
     public void render(float delta) {
+        hud.update(delta);
+        orderHud.update(delta);
         renderer.setView(camera);
         renderer.render();
-
         game.engine.update(delta);
+        //game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
+        orderHud.stage.draw();
     }
 
     @Override
@@ -56,6 +68,8 @@ public class GameScreen implements Screen {
 
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem());
+        hud = new TopHud(game.batch,500);
+        orderHud = new OrderHud(game.batch);
     }
 
     @Override
