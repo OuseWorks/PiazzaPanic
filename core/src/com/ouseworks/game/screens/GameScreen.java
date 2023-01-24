@@ -25,7 +25,7 @@ public class GameScreen implements Screen {
         EntityFactory entityFactory = new EntityFactory(game.engine);
         entityFactory.createCook(300, 400, 200, "Chef1.png");
         entityFactory.createCook(200, 500, 200, "Chef2.png");
-        entityFactory.createCustomer(600,600,game.engine.getEntities().get(0),"Item.png");
+        entityFactory.createCustomer(600, 600, game.engine.getEntities().get(0), "Item.png");
 
     }
 
@@ -50,11 +50,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        map = new TmxMapLoader().load("map.tmx");
+        map = new TmxMapLoader().load("KitchenMapV2.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
 
-        game.engine.addSystem(new RenderEntitySystem(camera,game.batch));
+        game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem());
     }
 
