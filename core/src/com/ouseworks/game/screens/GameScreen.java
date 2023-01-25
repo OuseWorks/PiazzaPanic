@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ouseworks.game.*;
 import com.ouseworks.game.scenes.OrderHud;
 import com.ouseworks.game.scenes.TopHud;
+import com.ouseworks.game.systems.ClickableSystem;
 import com.ouseworks.game.systems.RenderEntitySystem;
 import com.ouseworks.game.systems.MoveEntitySystem;
 
@@ -81,6 +82,7 @@ public class GameScreen implements Screen {
         // Start systems, giving them access to the huds if needed.
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem());
+        game.engine.addSystem(new ClickableSystem());
     }
 
 
