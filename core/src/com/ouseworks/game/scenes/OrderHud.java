@@ -1,4 +1,4 @@
-package com.ouseworks.game;
+package com.ouseworks.game.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -15,15 +15,14 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class OrderHud {
 
     public Stage stage;
-    private Viewport viewport;
+    //private Viewport viewport;
 
     private Window orderWindow;
 
 
 
-    public OrderHud(SpriteBatch spriteBatch) {
-        viewport=new ScreenViewport();
-        stage = new Stage(viewport,spriteBatch);
+    public OrderHud(Stage stage) {
+        this.stage=stage;
         Skin skin = new Skin(Gdx.files.internal("OrderSkin/orderSkin.json"));
 
         // Add a window with a table inside it.

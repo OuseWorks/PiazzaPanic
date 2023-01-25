@@ -3,6 +3,7 @@ package com.ouseworks.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import com.ouseworks.game.PiazzaPanicGame;
@@ -36,9 +37,12 @@ public class MainMenuScreen implements Screen {
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
-
+        Texture titleImage = new Texture("titleImage.jpg");
         game.batch.begin();
-        game.font.draw(game.batch, "Welcome to Piazza Panic!!! ", 100, 150);
+        game.batch.draw(titleImage,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        game.font.draw(game.batch, "Welcome to Piazza Panic!!! ", 100, 500);
+        game.font.draw(game.batch, "You are now the manager of the Piazza Restaurant kitchen. ", 100, 300);
+        game.font.draw(game.batch, "Your objective is to serve the customers as fast as possible! Good luck! ", 100, 200);
         game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
         game.batch.end();
 
