@@ -40,7 +40,11 @@ public class CollideEntitySystem extends EntitySystem {
                 if (a == b) { continue; }
                 if (!areColliding(a, b)) { continue; }
                 
-                int[] collisionPos = getCollisionEdge(a, b);
+                int[] collisionPos = getCollisionPos(a, b);
+
+                PositionComponent positionA = posComp.get(a);
+                positionA.x = collisionPos[0];
+                positionA.y = collisionPos[1];
             }
         }
     }
@@ -70,7 +74,7 @@ public class CollideEntitySystem extends EntitySystem {
             || a_below_b);
     }
 
-    private int[] getCollisionEdge(Entity a, Entity b) {
+    private int[] getCollisionPos(Entity a, Entity b) {
         PositionComponent positionA = posComp.get(a);
         PositionComponent positionB = posComp.get(b);
         
