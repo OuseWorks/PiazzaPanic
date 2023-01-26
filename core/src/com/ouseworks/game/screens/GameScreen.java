@@ -84,8 +84,8 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem());
         game.engine.addSystem(new CollideEntitySystem());
-        hud = new TopHud(game.batch,500);
-        orderHud = new OrderHud(game.batch);
+
+        orderHud = new OrderHud(hudStage);
         game.engine.addSystem(new ClickableSystem());
     }
 
