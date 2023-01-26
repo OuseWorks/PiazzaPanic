@@ -14,6 +14,7 @@ import com.ouseworks.game.EntityFactory;
 import com.ouseworks.game.OrderHud;
 import com.ouseworks.game.TopHud;
 import com.ouseworks.game.systems.RenderEntitySystem;
+import com.ouseworks.game.systems.CollideEntitySystem;
 import com.ouseworks.game.systems.MoveEntitySystem;
 import com.ouseworks.game.PiazzaPanicGame;
 
@@ -68,6 +69,7 @@ public class GameScreen implements Screen {
 
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem());
+        game.engine.addSystem(new CollideEntitySystem());
         hud = new TopHud(game.batch,500);
         orderHud = new OrderHud(game.batch);
     }

@@ -20,6 +20,7 @@ public class EntityFactory {
         cook.add(engine.createComponent(ClickableComponent.class));
         cook.add(engine.createComponent(InventoryComponent.class));
         cook.add(engine.createComponent(BusyComponent.class));
+        cook.add(engine.createComponent(CollideableComponent.class));
 
         // Set cook spawn location.
         cook.getComponent(PositionComponent.class).x=x;
@@ -40,6 +41,7 @@ public class EntityFactory {
         customer.add(engine.createComponent(RenderComponent.class));
         customer.add(engine.createComponent(OrderComponent.class));
         customer.add(engine.createComponent(BusyComponent.class));
+        customer.add(engine.createComponent(CollideableComponent.class));
         // Set customer spawn location.
         customer.getComponent(PositionComponent.class).x=100;
         customer.getComponent(PositionComponent.class).y=100;
