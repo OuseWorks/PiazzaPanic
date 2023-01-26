@@ -19,8 +19,8 @@ public class CollideEntitySystem extends EntitySystem {
     
     // TODO: use the real entity size
     // Assumed size of all entities
-    float width = 64;
-    float height = 64;
+    int width = 64;
+    int height = 64;
 
     @Override
     public void addedToEngine(Engine engine) {
@@ -38,9 +38,9 @@ public class CollideEntitySystem extends EntitySystem {
         for (Entity a : moveableEntities) {
             for (Entity b : allEntities) {
                 if (a == b) { continue; }
-                if (areColliding(a, b)) {
-                    System.out.print("collision!");
-                }
+                if (!areColliding(a, b)) { continue; }
+                
+                getCollisionEdge(a, b);
             }
         }
     }
@@ -68,5 +68,39 @@ public class CollideEntitySystem extends EntitySystem {
             || a_left_b
             || a_above_b
             || a_below_b);
+    }
+
+    private void getCollisionEdge(Entity a, Entity b) {
+        PositionComponent positionA = posComp.get(a);
+        PositionComponent positionB = posComp.get(b);
+
+        int leftA = positionA.x;
+        int rightA = positionA.x + width;
+        int topA = positionA.y;
+        int bottomA = positionA.y + height;
+
+        int leftB = positionB.x;
+        int rightB = positionB.x + width;
+        int topB = positionB.y;
+        int bottomB = positionB.y + height;
+        
+        int depressionLeft = rightA - leftB;
+        int depressionRight = rightB - leftA;
+        int depressionTop = bottomB - topA;
+        int depressionBottom = bottomA - topB;
+        
+        int smallest = Integer.min(depressionLeft, depressionRight);
+        smallest = Integer.min(smallest, depressionTop);
+        smallest = Integer.min(smallest, depressionBottom);
+        
+        if (smallest == depressionLeft) {
+            System.out.println("LEFT");
+        } else if (smallest == depressionRight) {
+            System.out.println("RIGHT");
+        } else if (smallest == depressionTop) {
+            System.out.println("TOP");
+        } else if (smallest == depressionBottom) {
+            System.out.println("BOTTOM");
+        }
     }
 }
