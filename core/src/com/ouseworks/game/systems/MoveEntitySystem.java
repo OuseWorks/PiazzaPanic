@@ -17,36 +17,55 @@ public class MoveEntitySystem extends EntitySystem {
     private ComponentMapper<PositionComponent> posComp = ComponentMapper.getFor(PositionComponent.class);
     private ComponentMapper<MoveableComponent> moveComp = ComponentMapper.getFor(MoveableComponent.class);
     private ImmutableArray<Entity> players;
+    private int currentChef = 0;
+
+    private Engine engine;
 
     @Override
-    public void addedToEngine (Engine engine) {
-        players = engine.getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class,
-                MoveableComponent.class).get());
+    public void addedToEngine(Engine engine) {
+        this.engine=engine;
+        players = engine
+                .getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class
+                        ).get());
     }
 
-    public void update (float deltaTime) {
+    public void update(float deltaTime) {
         PositionComponent position;
         MoveableComponent moveable;
 
-        for (int i = 0; i < players.size(); ++i) {
-            Entity player = players.get(i);
-            position = posComp.get(player);
-            moveable = moveComp.get(player);
+        if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT)) {
+            players.get(currentChef).remove(MoveableComponent.class);
+            if (currentChef < players.size() - 1) {
+                currentChef++;
 
-            //System.out.println(moveable.speed * Gdx.graphics.getDeltaTime());
+            } else {
+                currentChef = 0;
+            }
+            players.get(currentChef).add(engine.createComponent(MoveableComponent.class));
 
-            if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-                position.x += moveable.speed * Gdx.graphics.getDeltaTime();
-            }
-            if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-                position.x -= moveable.speed * Gdx.graphics.getDeltaTime();
-            }
-            if (Gdx.input.isKeyPressed(Keys.UP)) {
-                position.y += moveable.speed * Gdx.graphics.getDeltaTime();
-            }
-            if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-                position.y -= moveable.speed * Gdx.graphics.getDeltaTime();
-            }
+            System.out.println(currentChef);
+        }
+
+        position = posComp.get(players.get(currentChef));
+        moveable = moveComp.get(players.get(currentChef));
+
+        // TODO @mattrohatynskyj implement a system for cycling through chefs as a
+        // current chef
+        // this way we only need to check the chef selected (i.e. no for loop) :)
+        // furthermore this means we only check 1 entity against all objects instead of
+        // all chefs against all collidable objects
+
+        if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+            position.x += moveable.speed * Gdx.graphics.getDeltaTime();
+        }
+        if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+            position.x -= moveable.speed * Gdx.graphics.getDeltaTime();
+        }
+        if (Gdx.input.isKeyPressed(Keys.UP)) {
+            position.y += moveable.speed * Gdx.graphics.getDeltaTime();
+        }
+        if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+            position.y -= moveable.speed * Gdx.graphics.getDeltaTime();
         }
     }
 }

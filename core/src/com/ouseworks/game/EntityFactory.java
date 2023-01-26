@@ -12,14 +12,19 @@ public class EntityFactory {
     }
 
     // TODO Explore possibility of creating config files to store the description of entities.
-    public void createCook(int x, int y, int speed, String img){
+    public void createCook(int x, int y, String img, boolean movable){
         final Entity cook = engine.createEntity();
         cook.add(engine.createComponent(PositionComponent.class));
         cook.add(engine.createComponent(RenderComponent.class));
-        cook.add(engine.createComponent(MoveableComponent.class));
+        if(movable){
+            cook.add(engine.createComponent(MoveableComponent.class));
+            // Set cook movement speed
+            //cook.getComponent(MoveableComponent.class).speed = ;
+        }
         cook.add(engine.createComponent(ClickableComponent.class));
         cook.add(engine.createComponent(InventoryComponent.class));
         cook.add(engine.createComponent(BusyComponent.class));
+        cook.add(engine.createComponent(CollideableComponent.class));
 
         // Set cook spawn location.
         cook.getComponent(PositionComponent.class).x=x;
@@ -28,8 +33,7 @@ public class EntityFactory {
         // Set cook sprite image
         cook.getComponent(RenderComponent.class).visual=img;
 
-        // Set cook movement speed
-        cook.getComponent(MoveableComponent.class).speed = speed;
+
 
         engine.addEntity(cook);
     }
@@ -40,6 +44,7 @@ public class EntityFactory {
         customer.add(engine.createComponent(RenderComponent.class));
         customer.add(engine.createComponent(OrderComponent.class));
         customer.add(engine.createComponent(BusyComponent.class));
+        customer.add(engine.createComponent(CollideableComponent.class));
         // Set customer spawn location.
         customer.getComponent(PositionComponent.class).x=100;
         customer.getComponent(PositionComponent.class).y=100;
