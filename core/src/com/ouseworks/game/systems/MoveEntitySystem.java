@@ -8,6 +8,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.ouseworks.game.components.ClickableComponent;
 import com.ouseworks.game.components.MoveableComponent;
 import com.ouseworks.game.components.PositionComponent;
@@ -18,21 +19,26 @@ public class MoveEntitySystem extends EntitySystem {
     private ComponentMapper<MoveableComponent> moveComp = ComponentMapper.getFor(MoveableComponent.class);
     private ImmutableArray<Entity> players;
     private int currentChef = 0;
-
+    private TiledMapTileLayer collisionLayer;
     private Engine engine;
+
+    public MoveEntitySystem(TiledMapTileLayer collisionLayer) {
+        this.collisionLayer = collisionLayer;
+    }
 
     @Override
     public void addedToEngine(Engine engine) {
-        this.engine=engine;
+        this.engine = engine;
         players = engine
-                .getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class
-                        ).get());
+                .getEntitiesFor(
+                        Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class).get());
     }
 
     public void update(float deltaTime) {
         PositionComponent position;
         MoveableComponent moveable;
 
+        // chef switching using players list
         if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT)) {
             players.get(currentChef).remove(MoveableComponent.class);
             if (currentChef < players.size() - 1) {
@@ -46,26 +52,47 @@ public class MoveEntitySystem extends EntitySystem {
             System.out.println(currentChef);
         }
 
+        // player movement of currently selected chef
         position = posComp.get(players.get(currentChef));
         moveable = moveComp.get(players.get(currentChef));
 
-        // TODO @mattrohatynskyj implement a system for cycling through chefs as a
-        // current chef
-        // this way we only need to check the chef selected (i.e. no for loop) :)
-        // furthermore this means we only check 1 entity against all objects instead of
-        // all chefs against all collidable objects
+        int oldX = position.x;
+        int oldY = position.y;
+        int newX = oldX;
+        int newY = oldY;
+        float TileWidth = collisionLayer.getTileWidth();
+        float TileHeight = collisionLayer.getTileHeight();
 
         if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-            position.x += moveable.speed * Gdx.graphics.getDeltaTime();
+            newX += moveable.speed * Gdx.graphics.getDeltaTime();
+            if (!isCellBlocked(newX, oldY)) {
+                position.x = newX;
+            }
         }
         if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-            position.x -= moveable.speed * Gdx.graphics.getDeltaTime();
+            newX -= moveable.speed * Gdx.graphics.getDeltaTime();
+            if (!isCellBlocked(newX, oldY)) {
+                position.x = newX;
+            }
         }
         if (Gdx.input.isKeyPressed(Keys.UP)) {
-            position.y += moveable.speed * Gdx.graphics.getDeltaTime();
+            newY += moveable.speed * Gdx.graphics.getDeltaTime();
+            if (!isCellBlocked(oldX, newY)) {
+                position.y = newY;
+            }
         }
         if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-            position.y -= moveable.speed * Gdx.graphics.getDeltaTime();
+            newY -= moveable.speed * Gdx.graphics.getDeltaTime();
+            if (!isCellBlocked(oldX, newY)) {
+                position.y = newY;
+            }
         }
     }
+
+    private boolean isCellBlocked(float x, float y) {
+        TiledMapTileLayer.Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()),
+                (int) (y / collisionLayer.getTileHeight()));
+        return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey("blocked");
+    }
+
 }

@@ -81,7 +81,7 @@ public class GameScreen implements Screen {
         orderHud = new OrderHud(hudStage);
         // Start systems, giving them access to the huds if needed.
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
-        game.engine.addSystem(new MoveEntitySystem());
+        game.engine.addSystem(new MoveEntitySystem((TiledMapTileLayer) map.getLayers().get("Walls")));
         game.engine.addSystem(new CollideEntitySystem());
 
         orderHud = new OrderHud(hudStage);
