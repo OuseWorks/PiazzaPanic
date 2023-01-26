@@ -33,7 +33,7 @@ public class GameScreen implements Screen {
         this.game = game;
         EntityFactory entityFactory = new EntityFactory(game.engine);
 
-        entityFactory.createCook(300,400,200,"Chef1.png");
+        entityFactory.createCook(300,300,200,"Chef1.png");
         entityFactory.createCook(200,500,200,"Chef2.png");
         entityFactory.createCustomer(600,600,game.engine.getEntities().get(0),"Item.png");
     }

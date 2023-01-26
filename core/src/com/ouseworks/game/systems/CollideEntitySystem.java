@@ -78,7 +78,7 @@ public class CollideEntitySystem extends EntitySystem {
         PositionComponent positionA = posComp.get(a);
         PositionComponent positionB = posComp.get(b);
         
-        int[] collisionPos = {0, 0};
+        int[] collisionPos = {positionA.x, positionA.y};
 
         int leftA = positionA.x;
         int rightA = positionA.x + width;
@@ -110,7 +110,7 @@ public class CollideEntitySystem extends EntitySystem {
             collisionPos = new int[] { positionA.x, topB + height };
         } else if (smallest == depressionBottom) {
             // Bottom-side collision
-            collisionPos = new int[] { positionA.x, bottomB };
+            collisionPos = new int[] { positionA.x, bottomB - 2*height};
         }
         
         return collisionPos;
