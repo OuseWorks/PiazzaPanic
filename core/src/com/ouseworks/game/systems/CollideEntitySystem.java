@@ -19,8 +19,8 @@ public class CollideEntitySystem extends EntitySystem {
     
     // TODO: use the real entity size
     // Assumed size of all entities
-    int width = 64;
-    int height = 64;
+    int width = 100;
+    int height = 100;
 
     @Override
     public void addedToEngine(Engine engine) {
@@ -107,10 +107,10 @@ public class CollideEntitySystem extends EntitySystem {
             collisionPos = new int[] { rightB, positionA.y };
         } else if (smallest == depressionTop) {
             // Top-side collision
-            collisionPos = new int[] { positionA.x, topB };
+            collisionPos = new int[] { positionA.x, topB + height };
         } else if (smallest == depressionBottom) {
             // Bottom-side collision
-            collisionPos = new int[] { positionA.x, topB - height};
+            collisionPos = new int[] { positionA.x, bottomB };
         }
         
         return collisionPos;
