@@ -29,15 +29,13 @@ public class GameScreen implements Screen {
     private Stage hudStage;
     private Viewport hudViewport;
 
-
-
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
         EntityFactory entityFactory = new EntityFactory(game.engine);
 
-        entityFactory.createCook(300,400,200,"Chef1.png");
-        entityFactory.createCook(200,500,200,"Chef2.png");
-        entityFactory.createCustomer(600,600,game.engine.getEntities().get(0),"Item.png");
+        entityFactory.createCook(300, 400, 200, "Chef1.png");
+        entityFactory.createCook(200, 500, 200, "Chef2.png");
+        entityFactory.createCustomer(600, 600, game.engine.getEntities().get(0), "Item.png");
     }
 
     public void render(float delta) {
@@ -68,12 +66,12 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        map = new TmxMapLoader().load("KitchenMapV2.tmx");
+        map = new TmxMapLoader().load("KitchenMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
 
-        hudViewport=new ScreenViewport();
-        hudStage = new Stage(hudViewport,game.batch);
+        hudViewport = new ScreenViewport();
+        hudStage = new Stage(hudViewport, game.batch);
         Gdx.input.setInputProcessor(hudStage);
 
         // Create Huds
@@ -84,7 +82,6 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new MoveEntitySystem());
         game.engine.addSystem(new ClickableSystem());
     }
-
 
     @Override
     public void hide() {
