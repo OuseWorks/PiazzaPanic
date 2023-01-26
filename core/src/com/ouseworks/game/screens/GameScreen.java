@@ -17,6 +17,7 @@ import com.ouseworks.game.scenes.OrderHud;
 import com.ouseworks.game.scenes.TopHud;
 import com.ouseworks.game.systems.ClickableSystem;
 import com.ouseworks.game.systems.RenderEntitySystem;
+import com.ouseworks.game.systems.CollideEntitySystem;
 import com.ouseworks.game.systems.MoveEntitySystem;
 
 public class GameScreen implements Screen {
@@ -35,8 +36,9 @@ public class GameScreen implements Screen {
         this.game = game;
         EntityFactory entityFactory = new EntityFactory(game.engine);
 
-        entityFactory.createCook(300,400,200,"Chef1.png");
-        entityFactory.createCook(200,500,200,"Chef2.png");
+        entityFactory.createCook(300,300,"Chef1.png",true);
+        entityFactory.createCook(200,500,"Chef2.png",false);
+
         entityFactory.createCustomer(600,600,game.engine.getEntities().get(0),"Item.png");
     }
 
@@ -82,6 +84,9 @@ public class GameScreen implements Screen {
         // Start systems, giving them access to the huds if needed.
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem());
+        game.engine.addSystem(new CollideEntitySystem());
+
+        orderHud = new OrderHud(hudStage);
         game.engine.addSystem(new ClickableSystem());
     }
 
