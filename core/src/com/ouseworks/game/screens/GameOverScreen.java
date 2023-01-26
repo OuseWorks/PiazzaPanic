@@ -12,11 +12,13 @@ public class GameOverScreen implements Screen {
     final PiazzaPanicGame game;
     OrthographicCamera camera;
 
-    public GameOverScreen(final PiazzaPanicGame game) {
-        this.game = game;
+    private String gameOverMessage;
 
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false, 1600, 960);
+    public GameOverScreen(final PiazzaPanicGame game, String msg) {
+        this.game = game;
+        this.gameOverMessage=msg;
+
+
     }
 
     @Override
@@ -26,7 +28,8 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void show() {
-
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 1600, 960);
     }
 
     @Override
@@ -37,7 +40,9 @@ public class GameOverScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "Game Over!", 100, 100);
+        game.font.draw(game.batch, "Game Over!", 100, 300);
+        game.font.draw(game.batch,this.gameOverMessage,100,200);
+        game.font.draw(game.batch,"Click to play again",100,100);
         game.batch.end();
 
         if (Gdx.input.isTouched()) {

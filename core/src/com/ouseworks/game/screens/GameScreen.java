@@ -1,6 +1,6 @@
 package com.ouseworks.game.screens;
 
-import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,21 +10,24 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.ouseworks.game.EntityFactory;
-import com.ouseworks.game.OrderHud;
-import com.ouseworks.game.TopHud;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.ouseworks.game.*;
+import com.ouseworks.game.scenes.OrderHud;
+import com.ouseworks.game.scenes.TopHud;
+import com.ouseworks.game.systems.ClickableSystem;
 import com.ouseworks.game.systems.RenderEntitySystem;
 import com.ouseworks.game.systems.MoveEntitySystem;
-import com.ouseworks.game.PiazzaPanicGame;
 
 public class GameScreen implements Screen {
     final PiazzaPanicGame game;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
     private OrthographicCamera camera;
-    private TopHud hud;
+    private TopHud topHud;
     private OrderHud orderHud;
-    private Stage stage;
+    private Stage hudStage;
+    private Viewport hudViewport;
 
 
 
@@ -38,13 +41,16 @@ public class GameScreen implements Screen {
     }
 
     public void render(float delta) {
-        hud.update(delta);
+
         orderHud.update(delta);
+        topHud.update(delta);
+
+        // Render Tilemap
         renderer.setView(camera);
         renderer.render();
         game.engine.update(delta);
-        //game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+        // Draw HUDS
+        topHud.stage.draw();
         orderHud.stage.draw();
     }
 
@@ -66,11 +72,19 @@ public class GameScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map);
         camera = new OrthographicCamera();
 
+        hudViewport=new ScreenViewport();
+        hudStage = new Stage(hudViewport,game.batch);
+        Gdx.input.setInputProcessor(hudStage);
+
+        // Create Huds
+        topHud = new TopHud(hudStage);
+        orderHud = new OrderHud(hudStage);
+        // Start systems, giving them access to the huds if needed.
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem());
-        hud = new TopHud(game.batch,500);
-        orderHud = new OrderHud(game.batch);
+        game.engine.addSystem(new ClickableSystem());
     }
+
 
     @Override
     public void hide() {

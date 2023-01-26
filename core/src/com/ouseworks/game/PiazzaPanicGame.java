@@ -1,6 +1,7 @@
 package com.ouseworks.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -16,7 +17,9 @@ public class PiazzaPanicGame extends Game {
 		this.engine = new ECSEngine();
 
 		batch = new SpriteBatch();
-		font = new BitmapFont(); // use libGDX's default Arial font
+		font = new BitmapFont();
+		font.setColor(Color.GOLD);
+		font.getData().setScale(3,3);
 		this.setScreen(new MainMenuScreen(this));
 	}
 
