@@ -40,7 +40,7 @@ public class CollideEntitySystem extends EntitySystem {
                 if (a == b) { continue; }
                 if (!areColliding(a, b)) { continue; }
                 
-                getCollisionEdge(a, b);
+                int[] collisionPos = getCollisionEdge(a, b);
             }
         }
     }
@@ -70,9 +70,11 @@ public class CollideEntitySystem extends EntitySystem {
             || a_below_b);
     }
 
-    private void getCollisionEdge(Entity a, Entity b) {
+    private int[] getCollisionEdge(Entity a, Entity b) {
         PositionComponent positionA = posComp.get(a);
         PositionComponent positionB = posComp.get(b);
+        
+        int[] collisionPos = {0, 0};
 
         int leftA = positionA.x;
         int rightA = positionA.x + width;
@@ -94,13 +96,19 @@ public class CollideEntitySystem extends EntitySystem {
         smallest = Integer.min(smallest, depressionBottom);
         
         if (smallest == depressionLeft) {
-            System.out.println("LEFT");
+            // Left-side collision
+            collisionPos = new int[] { leftB - width, positionA.y };
         } else if (smallest == depressionRight) {
-            System.out.println("RIGHT");
+            // Right-side collision
+            collisionPos = new int[] { rightB, positionA.y };
         } else if (smallest == depressionTop) {
-            System.out.println("TOP");
+            // Top-side collision
+            collisionPos = new int[] { positionA.x, topB };
         } else if (smallest == depressionBottom) {
-            System.out.println("BOTTOM");
+            // Bottom-side collision
+            collisionPos = new int[] { positionA.x, topB - height};
         }
+        
+        return collisionPos;
     }
 }
