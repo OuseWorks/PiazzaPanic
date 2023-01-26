@@ -19,11 +19,14 @@ public class MoveEntitySystem extends EntitySystem {
     private ImmutableArray<Entity> players;
     private int currentChef = 0;
 
+    private Engine engine;
+
     @Override
     public void addedToEngine(Engine engine) {
+        this.engine=engine;
         players = engine
-                .getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class,
-                        MoveableComponent.class).get());
+                .getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class
+                        ).get());
     }
 
     public void update(float deltaTime) {
@@ -31,11 +34,14 @@ public class MoveEntitySystem extends EntitySystem {
         MoveableComponent moveable;
 
         if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT)) {
+            players.get(currentChef).remove(MoveableComponent.class);
             if (currentChef < players.size() - 1) {
                 currentChef++;
+
             } else {
                 currentChef = 0;
             }
+            players.get(currentChef).add(engine.createComponent(MoveableComponent.class));
 
             System.out.println(currentChef);
         }
