@@ -56,22 +56,24 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        /*camera.viewportWidth = width;
-        camera.viewportHeight = height;
-        TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
-        Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2,
-                layer0.getHeight() * layer0.getTileHeight() / 2, 0);
-        camera.position.set(center);
-        camera.update();*/
+        /*
+         * camera.viewportWidth = width;
+         * camera.viewportHeight = height;
+         * TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
+         * Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2,
+         * layer0.getHeight() * layer0.getTileHeight() / 2, 0);
+         * camera.position.set(center);
+         * camera.update();
+         */
 
     }
 
     @Override
     public void show() {
         map = new TmxMapLoader().load("KitchenMap.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map,1/64f);
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / 64f);
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,30,20);
+        camera.setToOrtho(false, 30, 20);
         camera.update();
 
         hudViewport = new ScreenViewport();
@@ -85,7 +87,6 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem((TiledMapTileLayer) map.getLayers().get("Walls")));
         game.engine.addSystem(new CollideEntitySystem());
-
 
         game.engine.addSystem(new ClickableSystem());
     }

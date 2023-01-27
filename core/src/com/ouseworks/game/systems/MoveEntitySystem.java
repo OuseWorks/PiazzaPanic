@@ -56,12 +56,11 @@ public class MoveEntitySystem extends EntitySystem {
         position = posComp.get(players.get(currentChef));
         moveable = moveComp.get(players.get(currentChef));
 
+        // TODO: calculate for all corners of chef entity, currently this checks
         int oldX = position.x;
         int oldY = position.y;
         int newX = oldX;
         int newY = oldY;
-        float TileWidth = collisionLayer.getTileWidth();
-        float TileHeight = collisionLayer.getTileHeight();
 
         if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
             newX += moveable.speed * Gdx.graphics.getDeltaTime();
