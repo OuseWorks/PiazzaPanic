@@ -99,7 +99,11 @@ public class MoveEntitySystem extends EntitySystem {
 
     private boolean isCellBlocked(float x, float y) {
         TiledMapTileLayer.Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()),
-                (int) (y / collisionLayer.getTileHeight()));
+                (int) (((y * 20 / 17) / collisionLayer.getTileHeight())));
+
+        System.out.println("x =" + (int) (x / collisionLayer.getTileWidth()) + " y = "
+                + (int) (y / collisionLayer.getTileHeight()));
+
         return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey("blocked");
     }
 
