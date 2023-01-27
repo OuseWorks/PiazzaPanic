@@ -1,5 +1,6 @@
 package com.ouseworks.game.screens;
 
+import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -19,6 +20,8 @@ import com.ouseworks.game.systems.ClickableSystem;
 import com.ouseworks.game.systems.RenderEntitySystem;
 import com.ouseworks.game.systems.CollideEntitySystem;
 import com.ouseworks.game.systems.MoveEntitySystem;
+import com.ouseworks.game.systems.ordering.CustomerCounterSystem;
+import com.ouseworks.game.systems.ordering.CustomerOrderSystem;
 
 public class GameScreen implements Screen {
     final PiazzaPanicGame game;
@@ -30,10 +33,14 @@ public class GameScreen implements Screen {
     private Stage hudStage;
     private Viewport hudViewport;
 
+    private Signal gameEventSignal;
+
 
 
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
+        this.gameEventSignal=new Signal();
+
         EntityFactory entityFactory = new EntityFactory(game.engine);
 
         entityFactory.createCook(300,300,"Chef1.png",true);
@@ -86,8 +93,12 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new MoveEntitySystem());
         game.engine.addSystem(new CollideEntitySystem());
 
-        orderHud = new OrderHud(hudStage);
+
         game.engine.addSystem(new ClickableSystem());
+        game.engine.addSystem(new CustomerCounterSystem(gameEventSignal));
+        game.engine.addSystem(new CustomerOrderSystem(gameEventSignal,topHud,orderHud));
+
+
     }
 
 
