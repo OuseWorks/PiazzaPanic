@@ -12,6 +12,42 @@ public class EntityFactory {
         this.engine = engine;
     }
 
+    public void createStation(int x, int y, String type) {
+        switch (type) {
+            case "cooking":
+                final Entity cookingStation = engine.createEntity();
+                cookingStation.add(engine.createComponent(PositionComponent.class));
+                cookingStation.add(engine.createComponent(ClickableComponent.class));
+                cookingStation.getComponent(PositionComponent.class).x = x;
+                cookingStation.getComponent(PositionComponent.class).y = y;
+                System.out.println("created a cooking station");
+                break;
+
+            case "ingredient":
+                final Entity ingredientStation = engine.createEntity();
+                ingredientStation.add(engine.createComponent(PositionComponent.class));
+                ingredientStation.add(engine.createComponent(ClickableComponent.class));
+                ingredientStation.getComponent(PositionComponent.class).x = x;
+                ingredientStation.getComponent(PositionComponent.class).y = y;
+                System.out.println("created a ingredient station");
+                break;
+
+            case "preperation":
+                final Entity prepStation = engine.createEntity();
+                prepStation.add(engine.createComponent(PositionComponent.class));
+                prepStation.add(engine.createComponent(ClickableComponent.class));
+                prepStation.getComponent(PositionComponent.class).x = x;
+                prepStation.getComponent(PositionComponent.class).y = y;
+                System.out.println("created a preperation station");
+                break;
+
+            default:
+                System.out.println("station needs a valid type");
+                break;
+        }
+
+    }
+
     // TODO Explore possibility of creating config files to store the description of
     // entities.
     public void createCook(int x, int y, String img, boolean movable) {

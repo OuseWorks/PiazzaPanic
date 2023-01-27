@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ouseworks.game.*;
+import com.ouseworks.game.components.StationType;
 import com.ouseworks.game.scenes.OrderHud;
 import com.ouseworks.game.scenes.TopHud;
 import com.ouseworks.game.systems.ClickableSystem;
@@ -33,6 +34,10 @@ public class GameScreen implements Screen {
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
         EntityFactory entityFactory = new EntityFactory(game.engine);
+
+        entityFactory.createStation(0, 0, "cooking");
+        entityFactory.createStation(0, 0, "preperation");
+        entityFactory.createStation(0, 0, "ingredient");
 
         entityFactory.createCook(300, 300, "Chef1.png", true);
         entityFactory.createCook(200, 500, "Chef2.png", false);
