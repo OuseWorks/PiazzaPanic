@@ -1,6 +1,5 @@
 package com.ouseworks.game.scenes;
 
-import com.ouseworks.game.scenes.Inventory;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.ashley.signals.Signal;
@@ -30,12 +29,15 @@ public class Ingredients{
     public Stage stage;
 
     private Window ingredientWindow;
-    public int noLettuce;
-    public int noTomato;
-    public int noPatty;
+    public static int noLettuce;
+    public static int noTomato;
+    public static int noPatty;
+
 
     public Ingredients(Stage stage){
         this.stage = stage;
+
+
         Skin skin = new Skin(Gdx.files.internal("OrderSkin/orderSkin.json"));
 
         Table ingredients = new Table();
@@ -51,6 +53,7 @@ public class Ingredients{
         Drawable lettuceIMG = new TextureRegionDrawable(new TextureRegion(lettuceTexture));
         Drawable tomatoIMG = new TextureRegionDrawable(new TextureRegion(tomatoTexture));
         Drawable pattyIMG = new TextureRegionDrawable(pattyTexture);
+
 
 
 
@@ -76,9 +79,7 @@ public class Ingredients{
 
             @Override
             public void changed(ChangeEvent click, Actor actor){
-                noLettuce++;
-                
-                ingredientWindow.remove();
+                noLettuce = noLettuce + 1;
 
             //     Lettuce.setText("Lettuce x", + noLettuce);
             }
@@ -137,8 +138,6 @@ public class Ingredients{
         stage.dispose();
     }
 
-    public int noLettuce(){
-        return noLettuce;
-    }
+
 
 }

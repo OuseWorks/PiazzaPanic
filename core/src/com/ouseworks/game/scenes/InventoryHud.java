@@ -9,8 +9,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.ouseworks.game.scenes.Ingredients;
 
-public class Inventory{
+public class InventoryHud{
 
     public Stage stage;
 
@@ -28,34 +29,38 @@ public class Inventory{
 
 
 
-    public Inventory(final Stage stage){
+    public InventoryHud(final Stage stage){
         this.stage = stage;
-
-        Table inventory = new Table();
-        inventory.bottom();
-        inventory.setFillParent(true);
+        
+        Table inventoryHud = new Table();
+        inventoryHud.bottom();
+        inventoryHud.setFillParent(true);
         BitmapFont font = new BitmapFont();
         font.getData().setScale(2, 2);
         Lettuce = new Label("Lettuce:0 ", new Label.LabelStyle(font,Color.GOLD));
         Tomato = new Label("Tomato:0", new Label.LabelStyle(font,Color.GOLD));
         Patty = new Label("Patty:0", new Label.LabelStyle(font,Color.GOLD));
 
-        Lettuce.setText("Lettuce:" + Ingredients.noLettuce()); 
-
-        inventory.row().top();
-        inventory.add(lettuce).pad(10);
-        inventory.add(tomato).pad(10);
-        inventory.add(patty).pad(10);
-        inventory.row();
-        inventory.add(Lettuce).pad(10);
-        inventory.add(Tomato).pad(10);
-        inventory.add(Patty).pad(10);
-        stage.addActor(inventory);
+        inventoryHud.row().top();
+        inventoryHud.add(lettuce).pad(10);
+        inventoryHud.add(tomato).pad(10);
+        inventoryHud.add(patty).pad(10);
+        inventoryHud.row();
+        inventoryHud.add(Lettuce).pad(10);
+        inventoryHud.add(Tomato).pad(10);
+        inventoryHud.add(Patty).pad(10);
+        stage.addActor(inventoryHud);
 
     }
 
+    
+
 
     public void update(float dt){
+        Lettuce.setText("Lettuce:" + Ingredients.noLettuce); 
+        Tomato.setText("Tomato:" + Ingredients.noTomato);
+        Patty.setText("Patty:"+ Ingredients.noPatty);
+
 
     }
 

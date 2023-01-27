@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ouseworks.game.*;
 import com.ouseworks.game.scenes.Ingredients;
-import com.ouseworks.game.scenes.Inventory;
+import com.ouseworks.game.scenes.InventoryHud;
 import com.ouseworks.game.scenes.OrderHud;
 import com.ouseworks.game.scenes.TopHud;
 import com.ouseworks.game.systems.ClickableSystem;
@@ -31,7 +31,7 @@ public class GameScreen implements Screen {
     private Stage hudStage;
     private Viewport hudViewport;
     private Ingredients ingredients;
-    private Inventory inventory;
+    private InventoryHud inventory;
 
 
 
@@ -89,7 +89,7 @@ public class GameScreen implements Screen {
         topHud = new TopHud(hudStage);
         orderHud = new OrderHud(hudStage);
         ingredients = new Ingredients(hudStage);
-        inventory = new Inventory(hudStage);
+        inventory = new InventoryHud(hudStage);
         // Start systems, giving them access to the huds if needed.
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem());
