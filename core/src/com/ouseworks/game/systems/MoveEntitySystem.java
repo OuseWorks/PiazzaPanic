@@ -61,28 +61,38 @@ public class MoveEntitySystem extends EntitySystem {
         int oldY = position.y;
         int newX = oldX;
         int newY = oldY;
+        int playerHeight = 64;
+        int playerWidth = 64;
 
         if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
             newX += moveable.speed * Gdx.graphics.getDeltaTime();
-            if (!isCellBlocked(newX, oldY)) {
+            if (!isCellBlocked(newX, oldY) && (!isCellBlocked(newX + playerWidth, oldY))
+                    && (!isCellBlocked(newX + playerWidth, oldY + playerHeight)) && (!isCellBlocked(
+                            newX, oldY + playerHeight))) {
                 position.x = newX;
             }
         }
         if (Gdx.input.isKeyPressed(Keys.LEFT)) {
             newX -= moveable.speed * Gdx.graphics.getDeltaTime();
-            if (!isCellBlocked(newX, oldY)) {
+            if (!isCellBlocked(newX, oldY) && (!isCellBlocked(newX + playerWidth, oldY))
+                    && (!isCellBlocked(newX + playerWidth, oldY + playerHeight)) && (!isCellBlocked(
+                            newX, oldY + playerHeight))) {
                 position.x = newX;
             }
         }
         if (Gdx.input.isKeyPressed(Keys.UP)) {
             newY += moveable.speed * Gdx.graphics.getDeltaTime();
-            if (!isCellBlocked(oldX, newY)) {
+            if (!isCellBlocked(oldX, newY) && (!isCellBlocked(oldX + playerWidth, newY))
+                    && (!isCellBlocked(oldX + playerWidth, newY + playerHeight)) && (!isCellBlocked(
+                            oldX, newY + playerHeight))) {
                 position.y = newY;
             }
         }
         if (Gdx.input.isKeyPressed(Keys.DOWN)) {
             newY -= moveable.speed * Gdx.graphics.getDeltaTime();
-            if (!isCellBlocked(oldX, newY)) {
+            if (!isCellBlocked(oldX, newY) && (!isCellBlocked(oldX + playerWidth, newY))
+                    && (!isCellBlocked(oldX + playerWidth, newY + playerHeight)) && (!isCellBlocked(
+                            oldX, newY + playerHeight))) {
                 position.y = newY;
             }
         }
