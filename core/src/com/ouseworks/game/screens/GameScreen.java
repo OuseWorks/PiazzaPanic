@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ouseworks.game.*;
+import com.ouseworks.game.scenes.Ingredients;
+import com.ouseworks.game.scenes.Inventory;
 import com.ouseworks.game.scenes.OrderHud;
 import com.ouseworks.game.scenes.TopHud;
 import com.ouseworks.game.systems.ClickableSystem;
@@ -28,6 +30,8 @@ public class GameScreen implements Screen {
     private OrderHud orderHud;
     private Stage hudStage;
     private Viewport hudViewport;
+    private Ingredients ingredients;
+    private Inventory inventory;
 
 
 
@@ -44,6 +48,9 @@ public class GameScreen implements Screen {
 
         orderHud.update(delta);
         topHud.update(delta);
+        ingredients.update(delta);
+        inventory.update(delta);
+
 
         // Render Tilemap
         renderer.setView(camera);
@@ -52,6 +59,8 @@ public class GameScreen implements Screen {
         // Draw HUDS
         topHud.stage.draw();
         orderHud.stage.draw();
+        ingredients.stage.draw();
+        inventory.stage.draw();
     }
 
     @Override
@@ -79,6 +88,8 @@ public class GameScreen implements Screen {
         // Create Huds
         topHud = new TopHud(hudStage);
         orderHud = new OrderHud(hudStage);
+        ingredients = new Ingredients(hudStage);
+        inventory = new Inventory(hudStage);
         // Start systems, giving them access to the huds if needed.
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem());
