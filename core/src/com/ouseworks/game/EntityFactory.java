@@ -7,8 +7,9 @@ import com.ouseworks.game.components.*;
 public class EntityFactory {
 
     public Engine engine;
-    public EntityFactory(Engine engine){
-        this.engine=engine;
+
+    public EntityFactory(Engine engine) {
+        this.engine = engine;
     }
 
     // TODO Explore possibility of creating config files to store the description of entities.
