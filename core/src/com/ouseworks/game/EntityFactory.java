@@ -43,7 +43,7 @@ public class EntityFactory {
         final Entity customer = engine.createEntity();
         customer.add(engine.createComponent(PositionComponent.class));
         customer.add(engine.createComponent(RenderComponent.class));
-        customer.add(engine.createComponent(OrderComponent.class));
+
         customer.add(engine.createComponent(BusyComponent.class));
         customer.add(engine.createComponent(CollideableComponent.class));
         // Set customer spawn location.
@@ -51,8 +51,7 @@ public class EntityFactory {
         customer.getComponent(PositionComponent.class).y=100;
         // Set customer sprite image
         customer.getComponent(RenderComponent.class).visual=img;
-        // Set customer order
-        customer.getComponent(OrderComponent.class).orderPlaced=orderPlaced;
+
         engine.addEntity(customer);
     }
 

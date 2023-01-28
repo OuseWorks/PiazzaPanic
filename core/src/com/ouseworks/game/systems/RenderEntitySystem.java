@@ -28,7 +28,7 @@ public class RenderEntitySystem extends EntitySystem {
         cooks = engine.getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class,
                 InventoryComponent.class, BusyComponent.class).get());
 
-        customers = engine.getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, OrderComponent.class
+        customers = engine.getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class
                 ,BusyComponent.class).get());
     }
 
