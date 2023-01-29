@@ -57,11 +57,12 @@ public class EntityFactory {
     }
 
 
-    public void createStation(Rectangle r, String stationType) {
-        // TODO: @ben260 or @mzyzc whoever is more used to creating entities in ashley
-        // ecs implement this
-        System.out.println("created station");
-        System.out.println(r.toString());
-        System.out.println("created station: " + stationType);
+    public void createStation(Rectangle r, EntityType stationType) {
+        Entity e = engine.createEntity();
+        e.add(engine.createComponent(InventoryComponent.class));
+        e.add(engine.createComponent(InteractableComponent.class));
+        e.getComponent(InteractableComponent.class).type=stationType;
+        e.getComponent(InteractableComponent.class).zone=r;
+        engine.addEntity(e);
     }
 }

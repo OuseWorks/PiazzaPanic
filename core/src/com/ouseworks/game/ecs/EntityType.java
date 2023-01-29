@@ -3,5 +3,8 @@ package com.ouseworks.game.ecs;
 public enum EntityType {
     BURGER,
     SALAD,
-    COUNTER
+    COUNTER,
+    COOKER,
+    INGREDIENT_STATION,
+    PREPARATION_STATION
 }
