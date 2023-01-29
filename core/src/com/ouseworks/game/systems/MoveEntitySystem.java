@@ -63,7 +63,7 @@ public class MoveEntitySystem extends EntitySystem {
         int playerHeight = 64;
         int playerWidth = 64;
 
-        if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
+        if (Gdx.input.isKeyPressed(Keys.RIGHT) || Gdx.input.isKeyPressed(Keys.D)) {
             newX += moveable.speed * Gdx.graphics.getDeltaTime();
             if (!isCellBlocked(newX, oldY) && (!isCellBlocked(newX + playerWidth, oldY))
                     && (!isCellBlocked(newX + playerWidth, oldY + playerHeight)) && (!isCellBlocked(
@@ -71,7 +71,7 @@ public class MoveEntitySystem extends EntitySystem {
                 position.x = newX;
             }
         }
-        if (Gdx.input.isKeyPressed(Keys.LEFT)) {
+        if (Gdx.input.isKeyPressed(Keys.LEFT) || Gdx.input.isKeyPressed(Keys.A)) {
             newX -= moveable.speed * Gdx.graphics.getDeltaTime();
             if (!isCellBlocked(newX, oldY) && (!isCellBlocked(newX + playerWidth, oldY))
                     && (!isCellBlocked(newX + playerWidth, oldY + playerHeight)) && (!isCellBlocked(
@@ -79,7 +79,7 @@ public class MoveEntitySystem extends EntitySystem {
                 position.x = newX;
             }
         }
-        if (Gdx.input.isKeyPressed(Keys.UP)) {
+        if (Gdx.input.isKeyPressed(Keys.UP) || Gdx.input.isKeyPressed(Keys.W)) {
             newY += moveable.speed * Gdx.graphics.getDeltaTime();
             if (!isCellBlocked(oldX, newY) && (!isCellBlocked(oldX + playerWidth, newY))
                     && (!isCellBlocked(oldX + playerWidth, newY + playerHeight)) && (!isCellBlocked(
@@ -87,7 +87,7 @@ public class MoveEntitySystem extends EntitySystem {
                 position.y = newY;
             }
         }
-        if (Gdx.input.isKeyPressed(Keys.DOWN)) {
+        if (Gdx.input.isKeyPressed(Keys.DOWN) || Gdx.input.isKeyPressed(Keys.S)) {
             newY -= moveable.speed * Gdx.graphics.getDeltaTime();
             if (!isCellBlocked(oldX, newY) && (!isCellBlocked(oldX + playerWidth, newY))
                     && (!isCellBlocked(oldX + playerWidth, newY + playerHeight)) && (!isCellBlocked(

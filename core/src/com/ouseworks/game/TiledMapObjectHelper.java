@@ -30,6 +30,19 @@ public class TiledMapObjectHelper {
 
     private void CreateObject(RectangleMapObject rectangleMapObject) {
         Rectangle r = rectangleMapObject.getRectangle();
-        entityFactory.createStation(r, EntityType.COUNTER);
+        String type = "";
+        if (rectangleMapObject.getProperties().containsKey("cooking")) {
+            type = "cooking";
+        }
+        if (rectangleMapObject.getProperties().containsKey("ingredient")) {
+            type = "ingredient";
+        }
+        if (rectangleMapObject.getProperties().containsKey("preparation")) {
+            type = "preparation";
+        }
+        if (rectangleMapObject.getProperties().containsKey("counter")) {
+            type = "counter";
+        }
+        entityFactory.createStation(r, type);
     }
 }
