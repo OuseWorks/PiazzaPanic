@@ -8,8 +8,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector3;
-
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -32,21 +30,20 @@ public class GameScreen implements Screen {
     private OrderHud orderHud;
     private Stage hudStage;
     private Viewport hudViewport;
+    private TiledMapObjectHelper tiledMapObjectHelper;
+    private EntityFactory entityFactory;
 
     private Signal gameEventSignal;
 
-
-
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
-        this.gameEventSignal=new Signal();
+        this.entityFactory = new EntityFactory(game.engine);
+        this.gameEventSignal = new Signal();
 
-        EntityFactory entityFactory = new EntityFactory(game.engine);
+        entityFactory.createCook(300, 300, "Chef1.png", true);
+        entityFactory.createCook(200, 500, "Chef2.png", false);
 
-        entityFactory.createCook(300,300,"Chef1.png",true);
-        entityFactory.createCook(200,500,"Chef2.png",false);
-
-        entityFactory.createCustomer(600,600,game.engine.getEntities().get(0),"Item.png");
+        entityFactory.createCustomer(600, 600, game.engine.getEntities().get(0), "Item.png");
     }
 
     public void render(float delta) {
@@ -65,24 +62,29 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
-        TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
-        Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2,
-                layer0.getHeight() * layer0.getTileHeight() / 2, 0);
-        camera.position.set(center);
-        camera.update();
-
+        /*
+         * camera.viewportWidth = width;
+         * camera.viewportHeight = height;
+         * TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
+         * Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2,
+         * layer0.getHeight() * layer0.getTileHeight() / 2, 0);
+         * camera.position.set(center);
+         * camera.update();
+         */
     }
 
     @Override
     public void show() {
-        map = new TmxMapLoader().load("KitchenMapV2.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map);
+        map = new TmxMapLoader().load("KitchenMap.tmx");
+        renderer = new OrthogonalTiledMapRenderer(map, 1 / 64f);
+        this.tiledMapObjectHelper = new TiledMapObjectHelper(this, entityFactory);
         camera = new OrthographicCamera();
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, 30, 20);
+        camera.update();
 
-        hudViewport=new ScreenViewport();
-        hudStage = new Stage(hudViewport,game.batch);
+        hudViewport = new ScreenViewport();
+        hudStage = new Stage(hudViewport, game.batch);
         Gdx.input.setInputProcessor(hudStage);
 
         // Create Huds
@@ -90,17 +92,14 @@ public class GameScreen implements Screen {
         orderHud = new OrderHud(hudStage);
         // Start systems, giving them access to the huds if needed.
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
-        game.engine.addSystem(new MoveEntitySystem());
+        game.engine.addSystem(new MoveEntitySystem((TiledMapTileLayer) map.getLayers().get("Walls")));
         game.engine.addSystem(new CollideEntitySystem());
-
 
         game.engine.addSystem(new ClickableSystem());
         game.engine.addSystem(new CustomerCounterSystem(gameEventSignal));
-        game.engine.addSystem(new CustomerOrderSystem(gameEventSignal,topHud,orderHud));
-
+        game.engine.addSystem(new CustomerOrderSystem(gameEventSignal, topHud, orderHud));
 
     }
-
 
     @Override
     public void hide() {

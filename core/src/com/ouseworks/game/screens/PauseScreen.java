@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import com.ouseworks.game.PiazzaPanicGame;
-import com.ouseworks.game.screens.GameScreen;
 
 public class PauseScreen implements Screen {
 
