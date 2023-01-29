@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
+import com.ouseworks.game.ecs.EntityType;
 import com.ouseworks.game.screens.GameScreen;
 
 public class TiledMapObjectHelper {
@@ -29,18 +30,18 @@ public class TiledMapObjectHelper {
 
     private void CreateObject(RectangleMapObject rectangleMapObject) {
         Rectangle r = rectangleMapObject.getRectangle();
-        String type = "";
+        EntityType type = null;
         if (rectangleMapObject.getProperties().containsKey("cooking")) {
-            type = "cooking";
+            type = EntityType.COOKER;
         }
         if (rectangleMapObject.getProperties().containsKey("ingredient")) {
-            type = "ingredient";
+            type = EntityType.INGREDIENT_STATION;
         }
         if (rectangleMapObject.getProperties().containsKey("preparation")) {
-            type = "preparation";
+            type = EntityType.PREPARATION_STATION;
         }
         if (rectangleMapObject.getProperties().containsKey("counter")) {
-            type = "counter";
+            type = EntityType.COUNTER;
         }
         entityFactory.createStation(r, type);
     }
