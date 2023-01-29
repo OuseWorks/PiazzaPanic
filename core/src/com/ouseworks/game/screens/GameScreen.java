@@ -30,14 +30,12 @@ public class GameScreen implements Screen {
     private OrderHud orderHud;
     private Stage hudStage;
     private Viewport hudViewport;
+    private TiledMapObjectHelper tiledMapObjectHelper;
+    private EntityFactory entityFactory;
 
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
-        EntityFactory entityFactory = new EntityFactory(game.engine);
-
-        entityFactory.createStation(0, 0, "cooking");
-        entityFactory.createStation(0, 0, "preperation");
-        entityFactory.createStation(0, 0, "ingredient");
+        this.entityFactory = new EntityFactory(game.engine);
 
         entityFactory.createCook(300, 300, "Chef1.png", true);
         entityFactory.createCook(200, 500, "Chef2.png", false);
@@ -77,6 +75,7 @@ public class GameScreen implements Screen {
     public void show() {
         map = new TmxMapLoader().load("KitchenMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / 64f);
+        this.tiledMapObjectHelper = new TiledMapObjectHelper(this, entityFactory);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 30, 20);
         camera.update();
