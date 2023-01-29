@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.ashley.core.Engine;
 import com.ouseworks.game.components.*;
+import com.ouseworks.game.ecs.EntityType;
 
 public class EntityFactory {
 
@@ -56,9 +57,10 @@ public class EntityFactory {
         engine.addEntity(customer);
     }
 
-    public void createStation(Rectangle r) {
+    public void createStation(Rectangle r, EntityType type) {
         // TODO: @ben260 or @mzyzc whoever is more used to creating entities in ashley
         // ecs implement this
         System.out.println("created station");
+        System.out.println(r.toString());
     }
 }

@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 import com.ouseworks.game.ecs.EventType;
-import com.ouseworks.game.ecs.FoodType;
+import com.ouseworks.game.ecs.EntityType;
 import com.ouseworks.game.scenes.OrderHud;
 import com.ouseworks.game.scenes.TopHud;
 
@@ -16,7 +16,7 @@ public class CustomerOrderSystem extends EntitySystem implements Listener {
     private Signal gameEventSignal;
     private Engine engine;
     private int customersRemaining;
-    private FoodType currentOrder;
+    private EntityType currentOrder;
     private Random rand;
     private TopHud topHud;
     private OrderHud orderHud;
@@ -47,12 +47,12 @@ public class CustomerOrderSystem extends EntitySystem implements Listener {
     public void createNewOrder(){
         int decision = rand.nextInt(2);
         if(decision==0){
-            currentOrder=FoodType.BURGER;
+            currentOrder= EntityType.BURGER;
             gameEventSignal.dispatch(EventType.REQUEST_BURGER);
             // Fire Event Request Burger
         }
         else if(decision==1){
-            currentOrder=FoodType.SALAD;
+            currentOrder= EntityType.SALAD;
             gameEventSignal.dispatch(EventType.REQUEST_SALAD);
             // Fire Event Request Salad
         }
