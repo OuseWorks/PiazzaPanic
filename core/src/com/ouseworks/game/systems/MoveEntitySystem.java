@@ -8,7 +8,6 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.ouseworks.game.components.ClickableComponent;
 import com.ouseworks.game.components.MoveableComponent;
 import com.ouseworks.game.components.PositionComponent;
@@ -19,26 +18,21 @@ public class MoveEntitySystem extends EntitySystem {
     private ComponentMapper<MoveableComponent> moveComp = ComponentMapper.getFor(MoveableComponent.class);
     private ImmutableArray<Entity> players;
     private int currentChef = 0;
-    private TiledMapTileLayer collisionLayer;
-    private Engine engine;
 
-    public MoveEntitySystem(TiledMapTileLayer collisionLayer) {
-        this.collisionLayer = collisionLayer;
-    }
+    private Engine engine;
 
     @Override
     public void addedToEngine(Engine engine) {
-        this.engine = engine;
+        this.engine=engine;
         players = engine
-                .getEntitiesFor(
-                        Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class).get());
+                .getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class
+                        ).get());
     }
 
     public void update(float deltaTime) {
         PositionComponent position;
         MoveableComponent moveable;
 
-        // chef switching using players list
         if (Gdx.input.isKeyJustPressed(Keys.CONTROL_LEFT)) {
             players.get(currentChef).remove(MoveableComponent.class);
             if (currentChef < players.size() - 1) {
@@ -52,59 +46,26 @@ public class MoveEntitySystem extends EntitySystem {
             System.out.println(currentChef);
         }
 
-        // player movement of currently selected chef
         position = posComp.get(players.get(currentChef));
         moveable = moveComp.get(players.get(currentChef));
 
-        int oldX = position.x;
-        int oldY = position.y;
-        int newX = oldX;
-        int newY = oldY;
-        int playerHeight = 64;
-        int playerWidth = 64;
+        // TODO @mattrohatynskyj implement a system for cycling through chefs as a
+        // current chef
+        // this way we only need to check the chef selected (i.e. no for loop) :)
+        // furthermore this means we only check 1 entity against all objects instead of
+        // all chefs against all collidable objects
 
         if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
-            newX += moveable.speed * Gdx.graphics.getDeltaTime();
-            if (!isCellBlocked(newX, oldY) && (!isCellBlocked(newX + playerWidth, oldY))
-                    && (!isCellBlocked(newX + playerWidth, oldY + playerHeight)) && (!isCellBlocked(
-                            newX, oldY + playerHeight))) {
-                position.x = newX;
-            }
+            position.x += moveable.speed * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Keys.LEFT)) {
-            newX -= moveable.speed * Gdx.graphics.getDeltaTime();
-            if (!isCellBlocked(newX, oldY) && (!isCellBlocked(newX + playerWidth, oldY))
-                    && (!isCellBlocked(newX + playerWidth, oldY + playerHeight)) && (!isCellBlocked(
-                            newX, oldY + playerHeight))) {
-                position.x = newX;
-            }
+            position.x -= moveable.speed * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Keys.UP)) {
-            newY += moveable.speed * Gdx.graphics.getDeltaTime();
-            if (!isCellBlocked(oldX, newY) && (!isCellBlocked(oldX + playerWidth, newY))
-                    && (!isCellBlocked(oldX + playerWidth, newY + playerHeight)) && (!isCellBlocked(
-                            oldX, newY + playerHeight))) {
-                position.y = newY;
-            }
+            position.y += moveable.speed * Gdx.graphics.getDeltaTime();
         }
         if (Gdx.input.isKeyPressed(Keys.DOWN)) {
-            newY -= moveable.speed * Gdx.graphics.getDeltaTime();
-            if (!isCellBlocked(oldX, newY) && (!isCellBlocked(oldX + playerWidth, newY))
-                    && (!isCellBlocked(oldX + playerWidth, newY + playerHeight)) && (!isCellBlocked(
-                            oldX, newY + playerHeight))) {
-                position.y = newY;
-            }
+            position.y -= moveable.speed * Gdx.graphics.getDeltaTime();
         }
     }
-
-    private boolean isCellBlocked(float x, float y) {
-        TiledMapTileLayer.Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()),
-                (int) (((y * 20 / 17) / collisionLayer.getTileHeight())));
-
-        System.out.println("x =" + (int) (x / collisionLayer.getTileWidth()) + " y = "
-                + (int) (y / collisionLayer.getTileHeight()));
-
-        return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey("blocked");
-    }
-
 }
