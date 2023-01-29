@@ -2,6 +2,7 @@ package com.ouseworks.game.screens;
 
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,10 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ouseworks.game.*;
 import com.ouseworks.game.scenes.OrderHud;
 import com.ouseworks.game.scenes.TopHud;
-import com.ouseworks.game.systems.ClickableSystem;
-import com.ouseworks.game.systems.RenderEntitySystem;
-import com.ouseworks.game.systems.CollideEntitySystem;
-import com.ouseworks.game.systems.MoveEntitySystem;
+import com.ouseworks.game.systems.*;
 import com.ouseworks.game.systems.ordering.CustomerCounterSystem;
 import com.ouseworks.game.systems.ordering.CustomerOrderSystem;
 
@@ -85,7 +83,7 @@ public class GameScreen implements Screen {
 
         hudViewport = new ScreenViewport();
         hudStage = new Stage(hudViewport, game.batch);
-        Gdx.input.setInputProcessor(hudStage);
+
 
         // Create Huds
         topHud = new TopHud(hudStage);
@@ -98,6 +96,12 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new ClickableSystem());
         game.engine.addSystem(new CustomerCounterSystem(gameEventSignal));
         game.engine.addSystem(new CustomerOrderSystem(gameEventSignal, topHud, orderHud));
+        game.engine.addSystem(new DetectInteractionSystem(gameEventSignal));
+
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(hudStage);
+        inputMultiplexer.addProcessor(new PlayerInputProcessor(gameEventSignal));
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
     }
 
