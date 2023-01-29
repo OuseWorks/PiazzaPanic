@@ -130,9 +130,25 @@
   <properties>
    <property name="blocked" value=""/>
   </properties>
-  <object id="34" x="704" y="256" width="192" height="960"/>
-  <object id="35" x="1472" y="192" width="384" height="192"/>
-  <object id="36" x="1472" y="576" width="384" height="192"/>
-  <object id="37" x="1472" y="960" width="384" height="192"/>
+  <object id="34" x="704" y="256" width="192" height="960">
+   <properties>
+    <property name="counter" value=""/>
+   </properties>
+  </object>
+  <object id="35" x="1472" y="192" width="384" height="192">
+   <properties>
+    <property name="cooking" value=""/>
+   </properties>
+  </object>
+  <object id="36" x="1472" y="576" width="384" height="192">
+   <properties>
+    <property name="preparation" value=""/>
+   </properties>
+  </object>
+  <object id="37" x="1472" y="960" width="384" height="192">
+   <properties>
+    <property name="ingredient" value=""/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
