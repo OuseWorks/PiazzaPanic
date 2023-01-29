@@ -1,5 +1,6 @@
 package com.ouseworks.game.screens;
 
+import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -20,6 +21,8 @@ import com.ouseworks.game.systems.ClickableSystem;
 import com.ouseworks.game.systems.RenderEntitySystem;
 import com.ouseworks.game.systems.CollideEntitySystem;
 import com.ouseworks.game.systems.MoveEntitySystem;
+import com.ouseworks.game.systems.ordering.CustomerCounterSystem;
+import com.ouseworks.game.systems.ordering.CustomerOrderSystem;
 
 public class GameScreen implements Screen {
     final PiazzaPanicGame game;
@@ -33,9 +36,12 @@ public class GameScreen implements Screen {
     private TiledMapObjectHelper tiledMapObjectHelper;
     private EntityFactory entityFactory;
 
+    private Signal gameEventSignal;
+
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
         this.entityFactory = new EntityFactory(game.engine);
+        this.gameEventSignal = new Signal();
 
         entityFactory.createCook(300, 300, "Chef1.png", true);
         entityFactory.createCook(200, 500, "Chef2.png", false);
@@ -68,7 +74,6 @@ public class GameScreen implements Screen {
          * camera.position.set(center);
          * camera.update();
          */
-
     }
 
     @Override
@@ -76,6 +81,7 @@ public class GameScreen implements Screen {
         map = new TmxMapLoader().load("KitchenMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / 64f);
         this.tiledMapObjectHelper = new TiledMapObjectHelper(this, entityFactory);
+        camera = new OrthographicCamera();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 30, 20);
         camera.update();
@@ -93,6 +99,9 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new CollideEntitySystem());
 
         game.engine.addSystem(new ClickableSystem());
+        game.engine.addSystem(new CustomerCounterSystem(gameEventSignal));
+        game.engine.addSystem(new CustomerOrderSystem(gameEventSignal, topHud, orderHud));
+
     }
 
     @Override

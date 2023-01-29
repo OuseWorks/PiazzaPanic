@@ -30,7 +30,7 @@ public class RenderEntitySystem extends EntitySystem {
                         InventoryComponent.class, BusyComponent.class).get());
 
         customers = engine.getEntitiesFor(Family
-                .all(PositionComponent.class, RenderComponent.class, OrderComponent.class, BusyComponent.class).get());
+                .all(PositionComponent.class, RenderComponent.class, BusyComponent.class).get());
     }
 
     public void update(float deltaTime) {
