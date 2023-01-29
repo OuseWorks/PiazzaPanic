@@ -15,10 +15,10 @@ public class CollideEntitySystem extends EntitySystem {
     private ImmutableArray<Entity> allEntities;
     private ImmutableArray<Entity> moveableEntities;
 
-    // TODO: use the real entity size
-    // Assumed size of all entities
-    int width = 100;
-    int height = 100;
+    // entity size
+    // default = 64x64
+    int width = 64;
+    int height = 64;
 
     @Override
     public void addedToEngine(Engine engine) {
