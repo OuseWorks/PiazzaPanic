@@ -11,5 +11,5 @@ public enum EntityType {
     PATTY,
     TOMATO,
     INGREDIENT_STATION,
-    PREPARATION_STATION
+    PREPARATION_STATION,
 }

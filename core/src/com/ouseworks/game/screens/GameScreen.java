@@ -1,6 +1,7 @@
 package com.ouseworks.game.screens;
 
 import com.badlogic.ashley.signals.Signal;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -59,7 +60,6 @@ public class GameScreen implements Screen {
         inventory.update(delta);
         ingredients.update(delta);
 
-
         // Render Tilemap
         renderer.setView(camera);
         renderer.render();
@@ -97,7 +97,6 @@ public class GameScreen implements Screen {
         hudViewport = new ScreenViewport();
         hudStage = new Stage(hudViewport, game.batch);
 
-
         // Create Huds
         topHud = new TopHud(hudStage);
         orderHud = new OrderHud(hudStage);
@@ -113,7 +112,8 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new CustomerOrderSystem(gameEventSignal, topHud, orderHud));
         game.engine.addSystem(new DetectInteractionSystem(gameEventSignal));
         game.engine.addSystem(new InventorySystem(gameEventSignal));
-        game.engine.addSystem(new FoodPreparationSystem(gameEventSignal,hudStage));
+        game.engine.addSystem(new FoodPreparationSystem(gameEventSignal, hudStage));
+        game.engine.addSystem(new CookingStationSystem(gameEventSignal, hudStage));
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(hudStage);
