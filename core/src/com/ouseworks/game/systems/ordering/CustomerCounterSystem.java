@@ -45,6 +45,7 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
 
     @Override
     public void receive(Signal signal, Object object) {
+        System.out.println(object);
 
         if(object.equals(EventType.REQUEST_BURGER)){
             // Only accept burgers.
@@ -59,6 +60,7 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
         }
 
         if(object.equals(EventType.COUNTER_CLICKED_BY_CHEF1)){
+            System.out.println("clicked");
             /* If the counter is clicked then check
                the edible component of the item in the chef's inventory. */
 
