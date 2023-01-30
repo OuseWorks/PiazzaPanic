@@ -7,13 +7,17 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.ouseworks.game.components.InteractableComponent;
 import com.ouseworks.game.components.MoveableComponent;
 import com.ouseworks.game.components.PositionComponent;
+import com.ouseworks.game.ecs.EntityType;
 import com.ouseworks.game.ecs.EventType;
+import com.ouseworks.game.scenes.Ingredients;
+import com.ouseworks.game.*;
 
 public class DetectInteractionSystem extends EntitySystem implements Listener {
     Signal gameEventSignal;
     Engine engine;
 
     Entity currentChef;
+    public Ingredients ingredients;
 
     ImmutableArray<Entity> stations;
 
@@ -48,10 +52,15 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
                                 (pc.get(currentChef).y + 64) * 20 / 17)) {
 
                     System.out.println("chef interacting with" + ic.get(station).type);
+                    if(ic.get(station).type == EntityType.INGREDIENT_STATION ){
+                        Ingredients.ingredientWindow.setVisible(true);
+                    }
                     // Decide what should happen next.
                 }
+
             }
 
         }
+
     }
 }

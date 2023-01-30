@@ -36,6 +36,7 @@ public class GameScreen implements Screen {
     private EntityFactory entityFactory;
 
 
+
     private Signal gameEventSignal;
 
     public GameScreen(final PiazzaPanicGame game) {
@@ -53,8 +54,8 @@ public class GameScreen implements Screen {
 
         orderHud.update(delta);
         topHud.update(delta);
-        ingredients.update(delta);
         inventory.update(delta);
+        ingredients.update(delta);
 
 
         // Render Tilemap
@@ -98,8 +99,8 @@ public class GameScreen implements Screen {
         // Create Huds
         topHud = new TopHud(hudStage);
         orderHud = new OrderHud(hudStage);
-        ingredients = new Ingredients(hudStage);
         inventory = new InventoryHud(hudStage);
+        ingredients = new Ingredients(hudStage, gameEventSignal);
         // Start systems, giving them access to the huds if needed.
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
         game.engine.addSystem(new MoveEntitySystem((TiledMapTileLayer) map.getLayers().get("Walls")));
@@ -109,6 +110,7 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new CustomerCounterSystem(gameEventSignal));
         game.engine.addSystem(new CustomerOrderSystem(gameEventSignal, topHud, orderHud));
         game.engine.addSystem(new DetectInteractionSystem(gameEventSignal));
+        game.engine.addSystem(new InventorySystem(gameEventSignal));
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(hudStage);

@@ -1,6 +1,13 @@
 package com.ouseworks.game.scenes;
 
+import com.ouseworks.game.*;
+import com.ouseworks.game.components.MoveableComponent;
+import com.ouseworks.game.ecs.EntityType;
+import com.ouseworks.game.systems.InventorySystem;
+import com.badlogic.ashley.core.ComponentMapper;
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.graphics.Color;
@@ -28,24 +35,28 @@ public class Ingredients{
 
     public Stage stage;
 
-    private Window ingredientWindow;
+    //public InventoryComponent Inventory;
+    public static Window ingredientWindow;
     public static int noLettuce;
     public static int noTomato;
     public static int noPatty;
     public static int noOnion;
     public static int noBuns;
+    private ComponentMapper<MoveableComponent> move = ComponentMapper.getFor(MoveableComponent.class);
+    private Entity currentChef;
+    public Engine engine;
+    
 
-
-    public Ingredients(Stage stage){
+    public Ingredients(Stage stage, Signal signal){
         this.stage = stage;
-
+        //this.signal = signal;
 
         Skin skin = new Skin(Gdx.files.internal("OrderSkin/orderSkin.json"));
 
         Table ingredients = new Table();
         ingredientWindow = new Window("Select Ingredient",skin);
         ingredientWindow.setSize(600, 450);
-        ingredientWindow.setPosition(4,stage.getHeight()/2);
+        ingredientWindow.setPosition(Gdx.graphics.getWidth()/2 -300,Gdx.graphics.getHeight()/2 -225);
         TextButton closeButton = new TextButton("Close", skin);
         closeButton.bottom().center();
 
@@ -78,16 +89,21 @@ public class Ingredients{
         closeButton.addListener(new ChangeListener(){
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                ingredientWindow.remove();
+                ingredientWindow.setVisible(false);;
+
             }
         });
 
+        final Signal gameSignal = signal;
         // functionality for the ingredient buttons 
         lettuce.addListener(new ChangeListener() {
 
             @Override
             public void changed(ChangeEvent click, Actor actor){
                 noLettuce = noLettuce + 1;
+                gameSignal.dispatch(EntityType.LETTUCE);
+                ingredientWindow.setVisible(false);;
+
             }
             
         });
@@ -97,6 +113,8 @@ public class Ingredients{
             @Override
             public void changed(ChangeEvent click, Actor actor){
                 noTomato++;
+                gameSignal.dispatch(EntityType.TOMATO);
+                ingredientWindow.setVisible(false);;
             }
 
         });
@@ -106,6 +124,9 @@ public class Ingredients{
             @Override
             public void changed(ChangeEvent click, Actor actor){
                 noPatty++;
+                gameSignal.dispatch(EntityType.PATTY);
+                ingredientWindow.setVisible(false);
+
             }
 
         });
@@ -114,6 +135,8 @@ public class Ingredients{
             @Override
             public void changed(ChangeEvent click, Actor actor){
                 noOnion++;
+                gameSignal.dispatch(EntityType.ONION);
+                ingredientWindow.setVisible(false);
             }
         });
 
@@ -121,6 +144,8 @@ public class Ingredients{
             @Override
             public void changed(ChangeEvent click, Actor actor){
                 noBuns++;
+                gameSignal.dispatch(EntityType.BUN);
+                ingredientWindow.setVisible(false);
             }
         });
 
@@ -145,12 +170,14 @@ public class Ingredients{
         ingredientWindow.add(onion);
         ingredientWindow.add(bun);
         ingredientWindow.add(closeButton);
-
+        ingredientWindow.setVisible(false);
         stage.addActor(ingredientWindow);
-        
+
     }
 
-    public void update(float dt){
+    public void update(float dt){        
+        
+
         
 
     }
