@@ -28,5 +28,7 @@ public class FoodPreparationSystem extends EntitySystem implements Listener {
             System.out.println("Opening preparation station");
             PreparationWindow prepWindow = new PreparationWindow(this.stage);
         }
+
+
     }
 }
