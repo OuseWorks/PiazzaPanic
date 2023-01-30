@@ -42,8 +42,6 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
     public void receive(Signal signal, Object object) {
         Sound sfx1 = Gdx.audio.newSound(Gdx.files.internal("tap.ogg"));
         sfx1.play();
-        Sound sfx2 = Gdx.audio.newSound(Gdx.files.internal("thankyou.ogg"));
-        sfx2.play();
 
         currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
 
@@ -67,6 +65,9 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
                         gameEventSignal.dispatch(EventType.USE_PREPARATION_STATION);
                     }
 
+                    if(ic.get(station).type == EntityType.COUNTER){
+                        gameEventSignal.dispatch(EventType.COUNTER_CLICKED_BY_CHEF1);
+
                     if (ic.get(station).type == EntityType.COOKER) {
                         gameEventSignal.dispatch(EventType.USE_COOKING_STATION);
                     }
@@ -78,4 +79,4 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
         }
 
     }
-}
+}}
