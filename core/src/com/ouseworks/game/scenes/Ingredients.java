@@ -32,6 +32,8 @@ public class Ingredients{
     public static int noLettuce;
     public static int noTomato;
     public static int noPatty;
+    public static int noOnion;
+    public static int noBuns;
 
 
     public Ingredients(Stage stage){
@@ -50,9 +52,13 @@ public class Ingredients{
         Texture lettuceTexture = new Texture(Gdx.files.internal("lettuce64.png"));
         Texture tomatoTexture = new Texture(Gdx.files.internal("tomatoes64.png"));
         Texture pattyTexture = new Texture(Gdx.files.internal("patty64.png"));
+        Texture onionTexture = new Texture(Gdx.files.internal("onion64.png"));
+        Texture bunTexture = new Texture(Gdx.files.internal("bun64.png"));
         Drawable lettuceIMG = new TextureRegionDrawable(new TextureRegion(lettuceTexture));
         Drawable tomatoIMG = new TextureRegionDrawable(new TextureRegion(tomatoTexture));
         Drawable pattyIMG = new TextureRegionDrawable(pattyTexture);
+        Drawable onionIMG = new TextureRegionDrawable(onionTexture);
+        Drawable bunIMG = new TextureRegionDrawable(bunTexture);
 
 
 
@@ -63,6 +69,8 @@ public class Ingredients{
         tomatoes.top().left();
         ImageButton patty = new ImageButton(pattyIMG);
         patty.top().right();
+        ImageButton onion = new ImageButton(onionIMG);
+        ImageButton bun = new ImageButton(bunIMG);
 
     
 
@@ -80,17 +88,10 @@ public class Ingredients{
             @Override
             public void changed(ChangeEvent click, Actor actor){
                 noLettuce = noLettuce + 1;
-
-            //     Lettuce.setText("Lettuce x", + noLettuce);
             }
             
         });
         
-        
-        
-        
-
-
         tomatoes.addListener(new ChangeListener(){
 
             @Override
@@ -109,28 +110,48 @@ public class Ingredients{
 
         });
 
+        onion.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent click, Actor actor){
+                noOnion++;
+            }
+        });
+
+        bun.addListener(new ChangeListener(){
+            @Override
+            public void changed(ChangeEvent click, Actor actor){
+                noBuns++;
+            }
+        });
+
 
 
         ingredients.top();
         ingredients.setFillParent(true);
 
-        ingredients.add(closeButton);
         ingredients.add(lettuce);
         ingredients.add(tomatoes);
         ingredients.add(patty);
+        ingredients.add(onion);
+        ingredients.add(bun);
+        ingredients.row();
+        ingredients.add(closeButton).center().bottom();
 
         ingredientWindow.addActor(ingredients);
-        ingredientWindow.add(closeButton);
         ingredientWindow.add(ingredients);
         ingredientWindow.add(lettuce);
         ingredientWindow.add(tomatoes);
         ingredientWindow.add(patty);
+        ingredientWindow.add(onion);
+        ingredientWindow.add(bun);
+        ingredientWindow.add(closeButton);
 
         stage.addActor(ingredientWindow);
         
     }
 
     public void update(float dt){
+        
 
     }
 
