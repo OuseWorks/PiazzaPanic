@@ -18,6 +18,7 @@ public class MainMenuScreen implements Screen {
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1600, 960);
+        Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
     }
 
     @Override
