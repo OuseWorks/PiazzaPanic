@@ -31,7 +31,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.graphics.Texture;
 
-public class Ingredients{
+public class Ingredients {
 
     public Stage stage;
 
@@ -54,7 +54,7 @@ public class Ingredients{
         Skin skin = new Skin(Gdx.files.internal("OrderSkin/orderSkin.json"));
 
         Table ingredients = new Table();
-        ingredientWindow = new Window("Select Ingredient",skin);
+        ingredientWindow = new Window("Select Ingredient", skin);
         ingredientWindow.setSize(600, 450);
         ingredientWindow.setPosition(Gdx.graphics.getWidth()/2 -300,Gdx.graphics.getHeight()/2 -225);
         TextButton closeButton = new TextButton("Close", skin);
@@ -71,9 +71,6 @@ public class Ingredients{
         Drawable onionIMG = new TextureRegionDrawable(onionTexture);
         Drawable bunIMG = new TextureRegionDrawable(bunTexture);
 
-
-
-
         ImageButton lettuce = new ImageButton(lettuceIMG);
         lettuce.top().center();
         ImageButton tomatoes = new ImageButton(tomatoIMG);
@@ -83,10 +80,8 @@ public class Ingredients{
         ImageButton onion = new ImageButton(onionIMG);
         ImageButton bun = new ImageButton(bunIMG);
 
-    
-
         // functionality for the close button to close the panel
-        closeButton.addListener(new ChangeListener(){
+        closeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ingredientWindow.setVisible(false);;
@@ -99,19 +94,19 @@ public class Ingredients{
         lettuce.addListener(new ChangeListener() {
 
             @Override
-            public void changed(ChangeEvent click, Actor actor){
+            public void changed(ChangeEvent click, Actor actor) {
                 noLettuce = noLettuce + 1;
                 gameSignal.dispatch(EntityType.LETTUCE);
                 ingredientWindow.setVisible(false);;
 
             }
-            
+
         });
-        
-        tomatoes.addListener(new ChangeListener(){
+
+        tomatoes.addListener(new ChangeListener() {
 
             @Override
-            public void changed(ChangeEvent click, Actor actor){
+            public void changed(ChangeEvent click, Actor actor) {
                 noTomato++;
                 gameSignal.dispatch(EntityType.TOMATO);
                 ingredientWindow.setVisible(false);;
@@ -119,10 +114,10 @@ public class Ingredients{
 
         });
 
-        patty.addListener(new ChangeListener(){
+        patty.addListener(new ChangeListener() {
 
             @Override
-            public void changed(ChangeEvent click, Actor actor){
+            public void changed(ChangeEvent click, Actor actor) {
                 noPatty++;
                 gameSignal.dispatch(EntityType.PATTY);
                 ingredientWindow.setVisible(false);
@@ -131,25 +126,23 @@ public class Ingredients{
 
         });
 
-        onion.addListener(new ChangeListener(){
+        onion.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent click, Actor actor){
+            public void changed(ChangeEvent click, Actor actor) {
                 noOnion++;
                 gameSignal.dispatch(EntityType.ONION);
                 ingredientWindow.setVisible(false);
             }
         });
 
-        bun.addListener(new ChangeListener(){
+        bun.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent click, Actor actor){
+            public void changed(ChangeEvent click, Actor actor) {
                 noBuns++;
                 gameSignal.dispatch(EntityType.BUN);
                 ingredientWindow.setVisible(false);
             }
         });
-
-
 
         ingredients.top();
         ingredients.setFillParent(true);
@@ -182,10 +175,8 @@ public class Ingredients{
 
     }
 
-    public void dispose(){
+    public void dispose() {
         stage.dispose();
     }
-
-
 
 }
