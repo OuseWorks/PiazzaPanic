@@ -4,6 +4,7 @@ import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -35,7 +36,7 @@ public class GameScreen implements Screen {
     private TiledMapObjectHelper tiledMapObjectHelper;
     private EntityFactory entityFactory;
 
-
+    private Music bgm = Gdx.audio.newMusic(Gdx.files.internal("bgm.ogg"));
 
     private Signal gameEventSignal;
 
@@ -44,8 +45,8 @@ public class GameScreen implements Screen {
         this.entityFactory = new EntityFactory(game.engine);
         this.gameEventSignal = new Signal();
 
-        entityFactory.createCook(300, 300, "Chef1.png", true);
-        entityFactory.createCook(200, 500, "Chef2.png", false);
+        entityFactory.createCook(900, 300, "Chef1.png", true);
+        entityFactory.createCook(900, 500, "Chef2.png", false);
 
         entityFactory.createCustomer(600, 600, game.engine.getEntities().get(0), "customer.png");
     }
@@ -117,6 +118,9 @@ public class GameScreen implements Screen {
         inputMultiplexer.addProcessor(new PlayerInputProcessor(gameEventSignal));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
+        bgm.setLooping(true);
+        bgm.setVolume(1);
+        bgm.play();
     }
 
     @Override
