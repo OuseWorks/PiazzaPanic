@@ -21,6 +21,7 @@ import com.ouseworks.game.scenes.TopHud;
 import com.ouseworks.game.systems.*;
 import com.ouseworks.game.systems.ordering.CustomerCounterSystem;
 import com.ouseworks.game.systems.ordering.CustomerOrderSystem;
+import com.ouseworks.game.systems.preparation.FoodPreparationSystem;
 
 public class GameScreen implements Screen {
     final PiazzaPanicGame game;
@@ -112,6 +113,7 @@ public class GameScreen implements Screen {
         game.engine.addSystem(new CustomerOrderSystem(gameEventSignal, topHud, orderHud));
         game.engine.addSystem(new DetectInteractionSystem(gameEventSignal));
         game.engine.addSystem(new InventorySystem(gameEventSignal));
+        game.engine.addSystem(new FoodPreparationSystem(gameEventSignal,hudStage));
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(hudStage);
