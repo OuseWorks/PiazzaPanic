@@ -13,8 +13,7 @@ public class InventoryComponent implements Component{
 
     public Stack<EntityType> items = new Stack<>();
 
-
-
-
-
+    public InventoryComponent() {
+        items.push(EntityType.BURGER);
+    }
 }
