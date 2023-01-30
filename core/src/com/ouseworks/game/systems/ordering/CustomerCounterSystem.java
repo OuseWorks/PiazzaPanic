@@ -57,32 +57,33 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
             System.out.println("I am a customer who wants a salad");
         }
 
-
         if(object.equals(EventType.COUNTER_CLICKED_BY_CHEF1)){
             /* If the counter is clicked then check
-               the edible component of the item in the chef's inventory.
-
-               if the edible component of the item is the correct food type
-               then delete the item in the chef's inventory and fire
-               the order completed event.
-             */
+               the edible component of the item in the chef's inventory. */
 
             InventoryComponent inventory = inventoryComponent.get(currentChef);
-            for (EntityType item : inventory.items) {
-                boolean correctDish;
+            boolean correctDish = false;
 
+            // Check that the chef has the requested dish
+            for (EntityType item : inventory.items) {
                 if (item == EntityType.BURGER && currentOrderRequest == EventType.REQUEST_BURGER) {
                     correctDish = true;
+                    inventory.items.remove(item);
+                    break;
                 } else if (item == EntityType.SALAD && currentOrderRequest == EventType.REQUEST_SALAD) {
                     correctDish = true;
-                } else {
-                    correctDish = false;
-                }
-
-                if (correctDish) {
-                    System.out.println("Thank you!");
+                    inventory.items.remove(item);
                     break;
                 }
+            }
+
+            // Respond to the correct/incorrect dish
+            if (correctDish) {
+                gameEventSignal.dispatch(EventType.ORDER_COMPLETED);
+                System.out.println("Thank you!");
+            } else {
+                gameEventSignal.dispatch(EventType.INCORRECT_ORDER);
+                System.out.println("This isn't my dish!");
             }
         }
     }
