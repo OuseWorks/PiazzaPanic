@@ -14,6 +14,9 @@ public class InventoryComponent implements Component{
     public Stack<EntityType> items = new Stack<>();
 
     public InventoryComponent() {
-        items.push(EntityType.BURGER);
+        for (int i = 0; i < 10; i++) {
+            items.push(EntityType.BURGER);
+            items.push(EntityType.SALAD);
+        }
     }
 }

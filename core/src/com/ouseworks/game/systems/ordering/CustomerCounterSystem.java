@@ -31,20 +31,20 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
     private EventType currentOrderRequest;
     private ComponentMapper<InventoryComponent> inventoryComponent = ComponentMapper.getFor(InventoryComponent.class);
     private Entity currentChef;
+
+    Sound thankYouSfx = Gdx.audio.newSound(Gdx.files.internal("thankyou.ogg"));
+    Sound sighSfx = Gdx.audio.newSound(Gdx.files.internal("sigh.ogg"));
+
     public CustomerCounterSystem(Signal gameEventSignal){
         this.gameEventSignal=gameEventSignal;
         this.gameEventSignal.add(this);
     }
-    Sound thankYouSfx = Gdx.audio.newSound(Gdx.files.internal("thankyou.ogg"));
-    Sound sighSfx = Gdx.audio.newSound(Gdx.files.internal("sigh.ogg"));
 
     @Override
     public void addedToEngine(Engine engine) {
         currentChef = engine
                 .getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class,
                 InventoryComponent.class, MoveableComponent.class).get()).first();
-
-        // Create counter entity which will hopefully get rendered by the render entity system?
     }
 
     @Override
@@ -85,11 +85,9 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
             if (correctDish) {
                 gameEventSignal.dispatch(EventType.ORDER_COMPLETED);
                 thankYouSfx.play();
-                System.out.println("Thank you!");
             } else {
                 gameEventSignal.dispatch(EventType.INCORRECT_ORDER);
                 sighSfx.play();
-                System.out.println("This isn't my dish!");
             }
         }
     }
