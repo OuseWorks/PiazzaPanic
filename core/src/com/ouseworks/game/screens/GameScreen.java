@@ -4,6 +4,7 @@ import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -30,6 +31,8 @@ public class GameScreen implements Screen {
     private Viewport hudViewport;
     private TiledMapObjectHelper tiledMapObjectHelper;
     private EntityFactory entityFactory;
+
+    private Music bgm = Gdx.audio.newMusic(Gdx.files.internal("bgm.ogg"));
 
     private Signal gameEventSignal;
 
@@ -103,6 +106,9 @@ public class GameScreen implements Screen {
         inputMultiplexer.addProcessor(new PlayerInputProcessor(gameEventSignal));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
+        bgm.setLooping(true);
+        bgm.setVolume(1);
+        bgm.play();
     }
 
     @Override
