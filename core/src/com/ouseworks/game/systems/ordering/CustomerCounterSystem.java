@@ -6,6 +6,8 @@ import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.ouseworks.game.components.ClickableComponent;
 import com.ouseworks.game.components.PositionComponent;
 import com.ouseworks.game.components.RenderComponent;
@@ -33,6 +35,8 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
         this.gameEventSignal=gameEventSignal;
         this.gameEventSignal.add(this);
     }
+    Sound thankYouSfx = Gdx.audio.newSound(Gdx.files.internal("thankyou.ogg"));
+    Sound sighSfx = Gdx.audio.newSound(Gdx.files.internal("sigh.ogg"));
 
     @Override
     public void addedToEngine(Engine engine) {
@@ -45,8 +49,6 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
 
     @Override
     public void receive(Signal signal, Object object) {
-        System.out.println(object);
-
         if(object.equals(EventType.REQUEST_BURGER)){
             // Only accept burgers.
             currentOrderRequest=EventType.REQUEST_BURGER;
@@ -60,7 +62,6 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
         }
 
         if(object.equals(EventType.COUNTER_CLICKED_BY_CHEF1)){
-            System.out.println("clicked");
             /* If the counter is clicked then check
                the edible component of the item in the chef's inventory. */
 
@@ -83,9 +84,11 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
             // Respond to the correct/incorrect dish
             if (correctDish) {
                 gameEventSignal.dispatch(EventType.ORDER_COMPLETED);
+                thankYouSfx.play();
                 System.out.println("Thank you!");
             } else {
                 gameEventSignal.dispatch(EventType.INCORRECT_ORDER);
+                sighSfx.play();
                 System.out.println("This isn't my dish!");
             }
         }

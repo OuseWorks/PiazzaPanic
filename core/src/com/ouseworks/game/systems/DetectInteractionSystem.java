@@ -42,8 +42,6 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
     public void receive(Signal signal, Object object) {
         Sound sfx1 = Gdx.audio.newSound(Gdx.files.internal("tap.ogg"));
         sfx1.play();
-        Sound sfx2 = Gdx.audio.newSound(Gdx.files.internal("thankyou.ogg"));
-        sfx2.play();
 
         currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
 
