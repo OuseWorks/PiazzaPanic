@@ -26,6 +26,7 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
 
     public DetectInteractionSystem(Signal gameEventSignal) {
         gameEventSignal.add(this);
+        this.gameEventSignal=gameEventSignal;
     }
 
     @Override
@@ -55,7 +56,11 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
                     if(ic.get(station).type == EntityType.INGREDIENT_STATION ){
                         Ingredients.ingredientWindow.setVisible(true);
                     }
-                    // Decide what should happen next.
+
+                    if(ic.get(station).type == EntityType.PREPARATION_STATION){
+                        gameEventSignal.dispatch(EventType.USE_PREPARATION_STATION);
+                    }
+
                 }
 
             }
