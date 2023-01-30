@@ -79,4 +79,4 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
         }
 
     }
-}
+}}
