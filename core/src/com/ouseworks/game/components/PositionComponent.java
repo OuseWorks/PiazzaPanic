@@ -7,7 +7,7 @@ public class PositionComponent implements Component, Pool.Poolable {
 
     public int x;
     public int y;
-
+    
     @Override
     public void reset() {
 

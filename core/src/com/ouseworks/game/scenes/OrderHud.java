@@ -1,35 +1,27 @@
 package com.ouseworks.game.scenes;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class OrderHud {
 
     public Stage stage;
-    //private Viewport viewport;
+    // private Viewport viewport;
 
     private Window orderWindow;
 
-
-
     public OrderHud(Stage stage) {
-        this.stage=stage;
+        this.stage = stage;
         Skin skin = new Skin(Gdx.files.internal("OrderSkin/orderSkin.json"));
 
         // Add a window with a table inside it.
         // Then add the dynamic information inside the table.
-        orderWindow = new Window("Orders",skin);
-        orderWindow.setSize(200,500);
-        orderWindow.setPosition(0,stage.getHeight()/2);
+        orderWindow = new Window("Orders", skin);
+        orderWindow.setSize(200, 500);
+        orderWindow.setPosition(0, stage.getHeight() / 2);
 
         Table table = new Table();
         table.top();
@@ -39,11 +31,11 @@ public class OrderHud {
         stage.addActor(orderWindow);
     }
 
-    public void update(float dt){
+    public void update(float dt) {
         // Insert update logic.
     }
 
-    public void dispose(){
+    public void dispose() {
         stage.dispose();
     }
 }
