@@ -1,5 +1,7 @@
 package com.ouseworks.game.systems.ordering;
 
+import java.text.BreakIterator;
+
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
@@ -7,7 +9,9 @@ import com.badlogic.ashley.utils.ImmutableArray;
 import com.ouseworks.game.components.ClickableComponent;
 import com.ouseworks.game.components.PositionComponent;
 import com.ouseworks.game.components.RenderComponent;
+import com.ouseworks.game.components.InventoryComponent;
 import com.ouseworks.game.ecs.EventType;
+import com.ouseworks.game.ecs.EntityType;
 
 public class CustomerCounterSystem extends EntitySystem implements Listener {
 
@@ -22,8 +26,8 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
      */
     private Signal gameEventSignal;
     private EventType currentOrderRequest;
-    private ComponentMapper<PositionComponent> inventoryComponent = ComponentMapper.getFor(PositionComponent.class);
-    private ImmutableArray<Entity> chefs;
+    private ComponentMapper<InventoryComponent> inventoryComponent = ComponentMapper.getFor(InventoryComponent.class);
+    private Entity currentChef;
     public CustomerCounterSystem(Signal gameEventSignal){
         this.gameEventSignal=gameEventSignal;
         this.gameEventSignal.add(this);
@@ -31,9 +35,9 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
 
     @Override
     public void addedToEngine(Engine engine) {
-        chefs = engine
+        currentChef = engine
                 .getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class
-                ).get());
+                ).get()).first();
 
         // Create counter entity which will hopefully get rendered by the render entity system?
     }
@@ -62,6 +66,24 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
                then delete the item in the chef's inventory and fire
                the order completed event.
              */
+
+            InventoryComponent inventory = inventoryComponent.get(currentChef);
+            for (EntityType item : inventory.items) {
+                boolean correctDish;
+
+                if (item == EntityType.BURGER && currentOrderRequest == EventType.REQUEST_BURGER) {
+                    correctDish = true;
+                } else if (item == EntityType.SALAD && currentOrderRequest == EventType.REQUEST_SALAD) {
+                    correctDish = true;
+                } else {
+                    correctDish = false;
+                }
+
+                if (correctDish) {
+                    System.out.println("Thank you!");
+                    break;
+                }
+            }
         }
     }
 }
