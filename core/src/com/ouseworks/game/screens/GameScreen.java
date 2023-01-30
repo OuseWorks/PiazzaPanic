@@ -29,9 +29,12 @@ public class GameScreen implements Screen {
     private TopHud topHud;
     private OrderHud orderHud;
     private Stage hudStage;
+    private Ingredients ingredients;
+    private InventoryHud inventory;
     private Viewport hudViewport;
     private TiledMapObjectHelper tiledMapObjectHelper;
     private EntityFactory entityFactory;
+
 
     private Signal gameEventSignal;
 
