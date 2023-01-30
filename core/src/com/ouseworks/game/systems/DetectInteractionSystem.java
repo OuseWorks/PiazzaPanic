@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.ouseworks.game.components.InteractableComponent;
 import com.ouseworks.game.components.MoveableComponent;
 import com.ouseworks.game.components.PositionComponent;
@@ -33,6 +35,10 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
 
     @Override
     public void receive(Signal signal, Object object) {
+        Sound sfx1 = Gdx.audio.newSound(Gdx.files.internal("tap.ogg"));
+        sfx1.play();
+        Sound sfx2 = Gdx.audio.newSound(Gdx.files.internal("thankyou.ogg"));
+        sfx2.play();
 
         currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
 
