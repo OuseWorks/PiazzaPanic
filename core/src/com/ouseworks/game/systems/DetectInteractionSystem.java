@@ -28,7 +28,7 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
 
     public DetectInteractionSystem(Signal gameEventSignal) {
         gameEventSignal.add(this);
-        this.gameEventSignal=gameEventSignal;
+        this.gameEventSignal = gameEventSignal;
     }
 
     @Override
@@ -59,12 +59,16 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
                                 (pc.get(currentChef).y + 64) * 20 / 17)) {
 
                     System.out.println("chef interacting with" + ic.get(station).type);
-                    if(ic.get(station).type == EntityType.INGREDIENT_STATION ){
+                    if (ic.get(station).type == EntityType.INGREDIENT_STATION) {
                         Ingredients.ingredientWindow.setVisible(true);
                     }
 
-                    if(ic.get(station).type == EntityType.PREPARATION_STATION){
+                    if (ic.get(station).type == EntityType.PREPARATION_STATION) {
                         gameEventSignal.dispatch(EventType.USE_PREPARATION_STATION);
+                    }
+
+                    if (ic.get(station).type == EntityType.COOKER) {
+                        gameEventSignal.dispatch(EventType.USE_COOKING_STATION);
                     }
 
                 }
