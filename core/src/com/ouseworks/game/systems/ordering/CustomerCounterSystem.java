@@ -10,6 +10,7 @@ import com.ouseworks.game.components.ClickableComponent;
 import com.ouseworks.game.components.PositionComponent;
 import com.ouseworks.game.components.RenderComponent;
 import com.ouseworks.game.components.InventoryComponent;
+import com.ouseworks.game.components.MoveableComponent;
 import com.ouseworks.game.ecs.EventType;
 import com.ouseworks.game.ecs.EntityType;
 
@@ -36,8 +37,8 @@ public class CustomerCounterSystem extends EntitySystem implements Listener {
     @Override
     public void addedToEngine(Engine engine) {
         currentChef = engine
-                .getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class
-                ).get()).first();
+                .getEntitiesFor(Family.all(PositionComponent.class, RenderComponent.class, ClickableComponent.class,
+                InventoryComponent.class, MoveableComponent.class).get()).first();
 
         // Create counter entity which will hopefully get rendered by the render entity system?
     }
