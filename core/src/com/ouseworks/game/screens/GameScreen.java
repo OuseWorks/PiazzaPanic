@@ -38,8 +38,8 @@ public class GameScreen implements Screen {
         this.entityFactory = new EntityFactory(game.engine);
         this.gameEventSignal = new Signal();
 
-        entityFactory.createCook(300, 300, "Chef1.png", true);
-        entityFactory.createCook(200, 500, "Chef2.png", false);
+        entityFactory.createCook(900, 300, "Chef1.png", true);
+        entityFactory.createCook(900, 500, "Chef2.png", false);
 
         entityFactory.createCustomer(600, 600, game.engine.getEntities().get(0), "customer.png");
     }
