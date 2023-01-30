@@ -19,27 +19,34 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
 
     ComponentMapper<InteractableComponent> ic = ComponentMapper.getFor(InteractableComponent.class);
     ComponentMapper<PositionComponent> pc = ComponentMapper.getFor(PositionComponent.class);
-    public DetectInteractionSystem(Signal gameEventSignal){
+
+    public DetectInteractionSystem(Signal gameEventSignal) {
         gameEventSignal.add(this);
     }
 
     @Override
-    public void addedToEngine(Engine engine){
-        this.engine=engine;
-        currentChef=engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
-        stations=engine.getEntitiesFor(Family.all(InteractableComponent.class).get());
+    public void addedToEngine(Engine engine) {
+        this.engine = engine;
+        currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
+        stations = engine.getEntitiesFor(Family.all(InteractableComponent.class).get());
     }
 
     @Override
     public void receive(Signal signal, Object object) {
 
-        currentChef=engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
+        currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
 
-        if(object.equals(EventType.CHECK_INTERACTIONS)){
-            for(Entity station : stations){
-                if(ic.get(station).zone.contains(pc.get(currentChef).x,pc.get(currentChef).y)
-                || ic.get(station).zone.contains(pc.get(currentChef).x,pc.get(currentChef).y+64)
-                        || ic.get(station).zone.contains(pc.get(currentChef).x,pc.get(currentChef).y-64)){
+        if (object.equals(EventType.CHECK_INTERACTIONS)) {
+            for (Entity station : stations) {
+                if (ic.get(station).zone.contains(pc.get(currentChef).x, pc.get(currentChef).y * 20 / 17)
+                        ||
+                        ic.get(station).zone.contains(pc.get(currentChef).x, (pc.get(currentChef).y + 64) * 20 / 17)
+                        ||
+                        ic.get(station).zone.contains(pc.get(currentChef).x + 64, pc.get(currentChef).y * 20 / 17)
+                        ||
+                        ic.get(station).zone.contains(pc.get(currentChef).x + 64,
+                                (pc.get(currentChef).y + 64) * 20 / 17)) {
+
                     System.out.println("chef interacting with" + ic.get(station).type);
                     // Decide what should happen next.
                 }
