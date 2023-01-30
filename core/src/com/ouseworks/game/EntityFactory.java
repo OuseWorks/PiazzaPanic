@@ -65,4 +65,6 @@ public class EntityFactory {
         e.getComponent(InteractableComponent.class).zone=r;
         engine.addEntity(e);
     }
+    
+
 }

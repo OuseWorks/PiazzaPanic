@@ -5,6 +5,11 @@ public enum EntityType {
     SALAD,
     COUNTER,
     COOKER,
+    ONION,
+    BUN,
+    LETTUCE,
+    PATTY,
+    TOMATO,
     INGREDIENT_STATION,
     PREPARATION_STATION
 }
