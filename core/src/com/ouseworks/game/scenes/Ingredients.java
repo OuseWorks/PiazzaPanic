@@ -24,7 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.graphics.Texture;
 
-public class Ingredients{
+public class Ingredients {
 
     public Stage stage;
 
@@ -35,17 +35,15 @@ public class Ingredients{
     public static int noOnion;
     public static int noBuns;
 
-
-    public Ingredients(Stage stage){
+    public Ingredients(Stage stage) {
         this.stage = stage;
-
 
         Skin skin = new Skin(Gdx.files.internal("OrderSkin/orderSkin.json"));
 
         Table ingredients = new Table();
-        ingredientWindow = new Window("Select Ingredient",skin);
+        ingredientWindow = new Window("Select Ingredient", skin);
         ingredientWindow.setSize(600, 450);
-        ingredientWindow.setPosition(4,stage.getHeight()/2);
+        ingredientWindow.setPosition(stage.getWidth() / 3, stage.getHeight() / 2);
         TextButton closeButton = new TextButton("Close", skin);
         closeButton.bottom().center();
 
@@ -60,9 +58,6 @@ public class Ingredients{
         Drawable onionIMG = new TextureRegionDrawable(onionTexture);
         Drawable bunIMG = new TextureRegionDrawable(bunTexture);
 
-
-
-
         ImageButton lettuce = new ImageButton(lettuceIMG);
         lettuce.top().center();
         ImageButton tomatoes = new ImageButton(tomatoIMG);
@@ -72,59 +67,55 @@ public class Ingredients{
         ImageButton onion = new ImageButton(onionIMG);
         ImageButton bun = new ImageButton(bunIMG);
 
-    
-
         // functionality for the close button to close the panel
-        closeButton.addListener(new ChangeListener(){
+        closeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 ingredientWindow.remove();
             }
         });
 
-        // functionality for the ingredient buttons 
+        // functionality for the ingredient buttons
         lettuce.addListener(new ChangeListener() {
 
             @Override
-            public void changed(ChangeEvent click, Actor actor){
+            public void changed(ChangeEvent click, Actor actor) {
                 noLettuce = noLettuce + 1;
             }
-            
+
         });
-        
-        tomatoes.addListener(new ChangeListener(){
+
+        tomatoes.addListener(new ChangeListener() {
 
             @Override
-            public void changed(ChangeEvent click, Actor actor){
+            public void changed(ChangeEvent click, Actor actor) {
                 noTomato++;
             }
 
         });
 
-        patty.addListener(new ChangeListener(){
+        patty.addListener(new ChangeListener() {
 
             @Override
-            public void changed(ChangeEvent click, Actor actor){
+            public void changed(ChangeEvent click, Actor actor) {
                 noPatty++;
             }
 
         });
 
-        onion.addListener(new ChangeListener(){
+        onion.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent click, Actor actor){
+            public void changed(ChangeEvent click, Actor actor) {
                 noOnion++;
             }
         });
 
-        bun.addListener(new ChangeListener(){
+        bun.addListener(new ChangeListener() {
             @Override
-            public void changed(ChangeEvent click, Actor actor){
+            public void changed(ChangeEvent click, Actor actor) {
                 noBuns++;
             }
         });
-
-
 
         ingredients.top();
         ingredients.setFillParent(true);
@@ -147,18 +138,15 @@ public class Ingredients{
         ingredientWindow.add(closeButton);
 
         stage.addActor(ingredientWindow);
-        
-    }
-
-    public void update(float dt){
-        
 
     }
 
-    public void dispose(){
+    public void update(float dt) {
+
+    }
+
+    public void dispose() {
         stage.dispose();
     }
-
-
 
 }
