@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.ashley.utils.ImmutableArray;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.ouseworks.game.components.InteractableComponent;
 import com.ouseworks.game.components.MoveableComponent;
 import com.ouseworks.game.components.PositionComponent;
@@ -26,7 +28,7 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
 
     public DetectInteractionSystem(Signal gameEventSignal) {
         gameEventSignal.add(this);
-        this.gameEventSignal=gameEventSignal;
+        this.gameEventSignal = gameEventSignal;
     }
 
     @Override
@@ -38,6 +40,8 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
 
     @Override
     public void receive(Signal signal, Object object) {
+        Sound sfx1 = Gdx.audio.newSound(Gdx.files.internal("tap.ogg"));
+        sfx1.play();
 
         currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
 
@@ -53,12 +57,19 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
                                 (pc.get(currentChef).y + 64) * 20 / 17)) {
 
                     System.out.println("chef interacting with" + ic.get(station).type);
-                    if(ic.get(station).type == EntityType.INGREDIENT_STATION ){
+                    if (ic.get(station).type == EntityType.INGREDIENT_STATION) {
                         Ingredients.ingredientWindow.setVisible(true);
                     }
 
-                    if(ic.get(station).type == EntityType.PREPARATION_STATION){
+                    if (ic.get(station).type == EntityType.PREPARATION_STATION) {
                         gameEventSignal.dispatch(EventType.USE_PREPARATION_STATION);
+                    }
+
+                    if(ic.get(station).type == EntityType.COUNTER){
+                        gameEventSignal.dispatch(EventType.COUNTER_CLICKED_BY_CHEF1);
+
+                    if (ic.get(station).type == EntityType.COOKER) {
+                        gameEventSignal.dispatch(EventType.USE_COOKING_STATION);
                     }
 
                 }
@@ -68,4 +79,4 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
         }
 
     }
-}
+}}

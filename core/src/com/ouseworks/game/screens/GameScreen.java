@@ -1,6 +1,7 @@
 package com.ouseworks.game.screens;
 
 import com.badlogic.ashley.signals.Signal;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
@@ -56,9 +57,8 @@ public class GameScreen implements Screen {
 
         orderHud.update(delta);
         topHud.update(delta);
-        inventory.update(delta);
+        //inventory.update(delta);
         ingredients.update(delta);
-
 
         // Render Tilemap
         renderer.setView(camera);
@@ -97,7 +97,6 @@ public class GameScreen implements Screen {
         hudViewport = new ScreenViewport();
         hudStage = new Stage(hudViewport, game.batch);
 
-
         // Create Huds
         topHud = new TopHud(hudStage);
         orderHud = new OrderHud(hudStage);
@@ -105,19 +104,20 @@ public class GameScreen implements Screen {
         ingredients = new Ingredients(hudStage, gameEventSignal);
         // Start systems, giving them access to the huds if needed.
         game.engine.addSystem(new RenderEntitySystem(camera, game.batch));
-        game.engine.addSystem(new MoveEntitySystem((TiledMapTileLayer) map.getLayers().get("Walls")));
+        game.engine.addSystem(new MoveEntitySystem((TiledMapTileLayer) map.getLayers().get("Walls"),gameEventSignal));
         game.engine.addSystem(new CollideEntitySystem());
 
         game.engine.addSystem(new ClickableSystem());
         game.engine.addSystem(new CustomerCounterSystem(gameEventSignal));
         game.engine.addSystem(new CustomerOrderSystem(gameEventSignal, topHud, orderHud));
         game.engine.addSystem(new DetectInteractionSystem(gameEventSignal));
-        game.engine.addSystem(new InventorySystem(gameEventSignal));
-        game.engine.addSystem(new FoodPreparationSystem(gameEventSignal,hudStage));
+        game.engine.addSystem(new InventorySystem(gameEventSignal,inventory));
+        game.engine.addSystem(new FoodPreparationSystem(gameEventSignal, hudStage));
+        game.engine.addSystem(new CookingStationSystem(gameEventSignal, hudStage));
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(hudStage);
-        inputMultiplexer.addProcessor(new PlayerInputProcessor(gameEventSignal));
+        inputMultiplexer.addProcessor(new PlayerInputProcessor(gameEventSignal,game.engine));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         bgm.setLooping(true);
