@@ -1,2 +1,2 @@
 # PiazzaPanic
-The Piazza Panic Game
+The Piazza Panic Game by Ouseworks
