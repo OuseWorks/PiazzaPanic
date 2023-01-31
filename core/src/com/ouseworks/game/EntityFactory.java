@@ -14,16 +14,13 @@ public class EntityFactory {
         this.engine = engine;
     }
 
-    // TODO Explore possibility of creating config files to store the description of
-    // entities.
+
     public void createCook(int x, int y, String img, boolean movable) {
         final Entity cook = engine.createEntity();
         cook.add(engine.createComponent(PositionComponent.class));
         cook.add(engine.createComponent(RenderComponent.class));
         if (movable) {
             cook.add(engine.createComponent(MoveableComponent.class));
-            // Set cook movement speed
-            // cook.getComponent(MoveableComponent.class).speed = ;
         }
         cook.add(engine.createComponent(ClickableComponent.class));
         cook.add(engine.createComponent(InventoryComponent.class));

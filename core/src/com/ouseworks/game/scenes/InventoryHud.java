@@ -1,15 +1,12 @@
 package com.ouseworks.game.scenes;
 
-import com.ouseworks.game.scenes.Ingredients;
+
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.ouseworks.game.scenes.Ingredients;
 
 public class InventoryHud{
 
@@ -122,18 +119,6 @@ public class InventoryHud{
         Salad.setText("Salad:"+saladCount);
     }
 
-    
-
-/*
-    public void update(float dt){
-        Lettuce.setText("Lettuce:" + Ingredients.noLettuce); 
-        Tomato.setText("Tomato:" + Ingredients.noTomato);
-        Patty.setText("Patty:"+ Ingredients.noPatty);
-        Onions.setText("Onions:" + Ingredients.noOnion);
-        Buns.setText("Buns:" + Ingredients.noBuns);
-
-    }
-*/
     public void dispose(){
         stage.dispose();
     }

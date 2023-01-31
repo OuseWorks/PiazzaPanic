@@ -33,7 +33,6 @@ public class ClickableSystem extends EntitySystem {
 
             if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 if (click.bounds.contains(Gdx.input.getX(), Gdx.input.getY())) {
-                    System.out.println("something was clicked");
                 }
             }
         }

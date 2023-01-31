@@ -18,15 +18,6 @@ import com.ouseworks.game.ecs.EntityType;
 
 public class CustomerCounterSystem extends EntitySystem implements Listener {
 
-    /*
-    Chefs who click the counter entity will have their inventory checked to see if it matches
-    the current order.
-
-    The item will be removed from the chef's inventory if order matches and will fire the
-    order completed signal.
-
-    If not it will fire an incorrect order signal.
-     */
     private Signal gameEventSignal;
     private EventType currentOrderRequest;
     private ComponentMapper<InventoryComponent> inventoryComponent = ComponentMapper.getFor(InventoryComponent.class);

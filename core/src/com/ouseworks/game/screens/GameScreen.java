@@ -56,7 +56,6 @@ public class GameScreen implements Screen, Listener {
 
         orderHud.update(delta);
         topHud.update(delta);
-        //inventory.update(delta);
         ingredients.update(delta);
 
         // Render Tilemap
@@ -79,15 +78,7 @@ public class GameScreen implements Screen, Listener {
 
     @Override
     public void resize(int width, int height) {
-        /*
-         * camera.viewportWidth = width;
-         * camera.viewportHeight = height;
-         * TiledMapTileLayer layer0 = (TiledMapTileLayer) map.getLayers().get(0);
-         * Vector3 center = new Vector3(layer0.getWidth() * layer0.getTileWidth() / 2,
-         * layer0.getHeight() * layer0.getTileHeight() / 2, 0);
-         * camera.position.set(center);
-         * camera.update();
-         */
+
     }
 
     @Override
