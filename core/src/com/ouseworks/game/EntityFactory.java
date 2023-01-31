@@ -40,7 +40,7 @@ public class EntityFactory {
         engine.addEntity(cook);
     }
 
-    public void createCustomer(int x, int y, Entity orderPlaced, String img) {
+    public void createCustomer(int x, int y, String img) {
         final Entity customer = engine.createEntity();
         customer.add(engine.createComponent(PositionComponent.class));
         customer.add(engine.createComponent(RenderComponent.class));
@@ -48,8 +48,8 @@ public class EntityFactory {
         customer.add(engine.createComponent(BusyComponent.class));
         customer.add(engine.createComponent(CollideableComponent.class));
         // Set customer spawn location.
-        customer.getComponent(PositionComponent.class).x = 100;
-        customer.getComponent(PositionComponent.class).y = 100;
+        customer.getComponent(PositionComponent.class).x = x;
+        customer.getComponent(PositionComponent.class).y = y;
         // Set customer sprite image
         customer.getComponent(RenderComponent.class).visual = img;
 
