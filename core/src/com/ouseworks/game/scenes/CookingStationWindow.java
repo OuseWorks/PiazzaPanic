@@ -19,8 +19,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class CookingStationWindow {
     public Stage stage;
     public Window window;
-    public ImageButton cookBurger;
-    public Label cookBurgerLabel;
+    public ImageButton cookPatty;
+    public Label cookPattyLabel;
 
     public CookingStationWindow(Stage stage) {
         this.stage = stage;
@@ -33,14 +33,14 @@ public class CookingStationWindow {
         Table table = new Table();
         table.setFillParent(true);
 
-        Texture burgerTexture = new Texture(Gdx.files.internal("burger64.png"));
-        Drawable burgerImage = new TextureRegionDrawable(new TextureRegion(burgerTexture));
+        Texture pattyTexture = new Texture(Gdx.files.internal("patty64.png"));
+        Drawable pattyImage = new TextureRegionDrawable(new TextureRegion(pattyTexture));
 
-        cookBurger = new ImageButton(burgerImage);
-        cookBurgerLabel = new Label("Cook Burger", skin);
-        table.add(cookBurgerLabel);
+        cookPatty = new ImageButton(pattyImage);
+        cookPattyLabel = new Label("Cook Patty", skin);
+        table.add(cookPattyLabel);
         table.row();
-        table.add(cookBurger);
+        table.add(cookPatty);
 
         TextButton closeButton = new TextButton("Close", skin);
         closeButton.setColor(Color.RED);
