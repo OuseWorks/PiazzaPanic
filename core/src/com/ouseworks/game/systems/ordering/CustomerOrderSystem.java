@@ -23,8 +23,6 @@ public class CustomerOrderSystem extends EntitySystem implements Listener {
 
 
     public CustomerOrderSystem(Signal gameEventSignal, TopHud topHud, OrderHud orderHud){
-        // TODO Also take in the top hud and order hud so can update variables from these variables!
-
         rand = new Random();
         // Listen for game events
         this.gameEventSignal=gameEventSignal;
@@ -71,23 +69,17 @@ public class CustomerOrderSystem extends EntitySystem implements Listener {
         if(object.equals(EventType.ORDER_COMPLETED)){
             orderHud.saladRecipe.setVisible(false);
             orderHud.burgerRecipe.setVisible(false);
-            System.out.println("Order completed!");
             customersRemaining--;
             if(customersRemaining==0){
                 // Fire game finished event!
                 gameEventSignal.dispatch(EventType.GAME_FINISHED);
             }
             else{
-                // TODO Notify user that order has been completed.
                 // Choose new order
                 createNewOrder();
                 // Update hud
                 updateDisplays();
             }
-        }
-
-        if(object.equals(EventType.GAME_FINISHED)){
-            System.out.println("Game finished!");
         }
     }
 }

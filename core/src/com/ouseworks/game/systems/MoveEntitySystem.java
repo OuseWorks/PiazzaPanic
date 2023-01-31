@@ -14,8 +14,6 @@ import com.ouseworks.game.components.ClickableComponent;
 import com.ouseworks.game.components.MoveableComponent;
 import com.ouseworks.game.components.PositionComponent;
 import com.ouseworks.game.components.RenderComponent;
-import com.ouseworks.game.ecs.EventType;
-import com.ouseworks.game.scenes.InventoryHud;
 
 public class MoveEntitySystem extends EntitySystem {
     private ComponentMapper<PositionComponent> posComp = ComponentMapper.getFor(PositionComponent.class);
@@ -105,9 +103,6 @@ public class MoveEntitySystem extends EntitySystem {
     private boolean isCellBlocked(float x, float y) {
         TiledMapTileLayer.Cell cell = collisionLayer.getCell((int) (x / collisionLayer.getTileWidth()),
                 (int) (((y * 20 / 17) / collisionLayer.getTileHeight())));
-
-        //System.out.println("x =" + (int) (x / collisionLayer.getTileWidth()) + " y = "
-         //       + (int) (y / collisionLayer.getTileHeight()));
 
         return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey("blocked");
     }

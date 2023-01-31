@@ -40,7 +40,6 @@ public class CookingStationSystem extends EntitySystem implements Listener {
     @Override
     public void receive(Signal signal, Object object) {
         if (object.equals(EventType.USE_COOKING_STATION)) {
-            System.out.println("Opening cooking station");
             CookingStationWindow c = new CookingStationWindow(stage, signal);
         }
         currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);

@@ -19,12 +19,7 @@ import java.util.Collections;
 
 public class InventorySystem  extends EntitySystem implements Listener{
 
-    /*
-     * Adds an ingredient to the currently selected chef when
-     * chef interacts with the ingredient station.
-     * 
-     * Listen for a signal.
-     */
+
 
     private Entity currentChef;
     private ComponentMapper<InventoryComponent> inv = ComponentMapper.getFor(InventoryComponent.class);
@@ -43,14 +38,9 @@ public class InventorySystem  extends EntitySystem implements Listener{
         currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
         this.engine = engine;
         currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
-
-
     }
 
     public void updateInventoryHud(Entity currentChef){
-        // sets the inventory hud to match the current chef's inventory.
-        //update current chef
-        //currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
 
         int lettuceCount = Collections.frequency(inv.get(currentChef).items,EntityType.LETTUCE);
         int tomatoCount = Collections.frequency(inv.get(currentChef).items,EntityType.TOMATO);
@@ -76,8 +66,6 @@ public class InventorySystem  extends EntitySystem implements Listener{
         if(object instanceof EntityType){
             currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
             inv.get(currentChef).items.add((EntityType)object);
-            System.out.println("Inventory update");
-            // update the inventory hud...
             updateInventoryHud(currentChef);
         }
 

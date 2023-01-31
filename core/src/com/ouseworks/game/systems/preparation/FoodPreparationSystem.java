@@ -5,7 +5,6 @@ import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.ouseworks.game.components.InventoryComponent;
 import com.ouseworks.game.components.MoveableComponent;
@@ -38,7 +37,6 @@ public class FoodPreparationSystem extends EntitySystem implements Listener {
     @Override
     public void receive(Signal signal, Object object) {
         if(object.equals(EventType.USE_PREPARATION_STATION)){
-            System.out.println("Opening preparation station");
             PreparationWindow prepWindow = new PreparationWindow(this.stage,gameEventSignal);
         }
         currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);

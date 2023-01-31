@@ -18,7 +18,6 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
     Engine engine;
 
     Entity currentChef;
-    public Ingredients ingredients;
 
     ImmutableArray<Entity> stations;
 
