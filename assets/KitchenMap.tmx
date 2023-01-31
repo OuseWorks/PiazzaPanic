@@ -3,7 +3,6 @@
  <tileset firstgid="1" source="FloorSet.tsx"/>
  <tileset firstgid="33" source="pic1.tsx"/>
  <tileset firstgid="1057" source="FoodSet.tsx"/>
- <tileset firstgid="1067" source="Paper.tsx"/>
  <tileset firstgid="1069" source="Wall.tsx"/>
  <tileset firstgid="1070" source="RedBrickWall.tsx"/>
  <layer id="1" name="Floor" width="30" height="20" locked="1">
