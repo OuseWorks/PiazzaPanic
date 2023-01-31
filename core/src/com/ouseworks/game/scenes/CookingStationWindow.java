@@ -1,6 +1,7 @@
 package com.ouseworks.game.scenes;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.ouseworks.game.ecs.EventType;
+import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -22,7 +25,7 @@ public class CookingStationWindow {
     public ImageButton cookPatty;
     public Label cookPattyLabel;
 
-    public CookingStationWindow(Stage stage) {
+    public CookingStationWindow(Stage stage, Signal gameEventSignal) {
         this.stage = stage;
         Skin skin = new Skin(Gdx.files.internal("OrderSkin/orderSkin.json"));
 
@@ -55,6 +58,16 @@ public class CookingStationWindow {
 
         window.addActor(table);
         stage.addActor(window);
+
+        final Signal signal = gameEventSignal;
+        cookPatty.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                signal.dispatch(EventType.COOK_PATTY);
+                window.remove();
+            }
+        });
+
     }
 
 }
