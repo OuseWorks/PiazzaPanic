@@ -20,6 +20,8 @@ public class FoodPreparationSystem extends EntitySystem implements Listener {
     private Engine engine;
     private Entity currentChef;
     private ComponentMapper<InventoryComponent> inv = ComponentMapper.getFor(InventoryComponent.class);
+    Sound tapSfx = Gdx.audio.newSound(Gdx.files.internal("tap.ogg"));
+    Sound chopSfx = Gdx.audio.newSound(Gdx.files.internal("chop.ogg"));
     Sound sighSfx = Gdx.audio.newSound(Gdx.files.internal("sigh.ogg"));
 
 
@@ -47,6 +49,7 @@ public class FoodPreparationSystem extends EntitySystem implements Listener {
                 inv.get(currentChef).items.remove(EntityType.LETTUCE);
                 inv.get(currentChef).items.add(EntityType.CHOPPED_LETTUCE);
                 gameEventSignal.dispatch(EventType.UPDATE_INVENTORY);
+                chopSfx.play();
             }
             else{
                 sighSfx.play();
@@ -58,6 +61,7 @@ public class FoodPreparationSystem extends EntitySystem implements Listener {
                 inv.get(currentChef).items.remove(EntityType.TOMATO);
                 inv.get(currentChef).items.add(EntityType.CHOPPED_TOMATO);
                 gameEventSignal.dispatch(EventType.UPDATE_INVENTORY);
+                chopSfx.play();
             }
             else{
                 sighSfx.play();
@@ -69,6 +73,7 @@ public class FoodPreparationSystem extends EntitySystem implements Listener {
                 inv.get(currentChef).items.remove(EntityType.ONION);
                 inv.get(currentChef).items.add(EntityType.CHOPPED_ONION);
                 gameEventSignal.dispatch(EventType.UPDATE_INVENTORY);
+                chopSfx.play();
             }
             else{
                 sighSfx.play();
@@ -84,6 +89,7 @@ public class FoodPreparationSystem extends EntitySystem implements Listener {
                 inv.get(currentChef).items.remove(EntityType.LETTUCE);
                 inv.get(currentChef).items.add(EntityType.BURGER);
                 gameEventSignal.dispatch(EventType.UPDATE_INVENTORY);
+                tapSfx.play();
             }
             else{
                 sighSfx.play();
@@ -99,6 +105,7 @@ public class FoodPreparationSystem extends EntitySystem implements Listener {
                 inv.get(currentChef).items.remove(EntityType.CHOPPED_TOMATO);
                 inv.get(currentChef).items.add(EntityType.SALAD);
                 gameEventSignal.dispatch(EventType.UPDATE_INVENTORY);
+                tapSfx.play();
             }
             else{
                 sighSfx.play();
