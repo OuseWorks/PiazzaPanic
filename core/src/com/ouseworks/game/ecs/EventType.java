@@ -17,6 +17,7 @@ public enum EventType {
     CHOP_LETTUCE,
     CHOP_TOMATO,
     CHOP_ONION,
+    COOK_PATTY,
     ASSEMBLE_BURGER,
     ASSEMBLE_SALAD
 }
