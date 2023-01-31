@@ -65,8 +65,9 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
                         gameEventSignal.dispatch(EventType.USE_PREPARATION_STATION);
                     }
 
-                    if(ic.get(station).type == EntityType.COUNTER){
+                    if (ic.get(station).type == EntityType.COUNTER) {
                         gameEventSignal.dispatch(EventType.COUNTER_CLICKED_BY_CHEF1);
+                    }
 
                     if (ic.get(station).type == EntityType.COOKER) {
                         gameEventSignal.dispatch(EventType.USE_COOKING_STATION);
@@ -79,4 +80,4 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
         }
 
     }
-}}
+}
