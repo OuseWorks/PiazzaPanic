@@ -73,6 +73,7 @@ public class GameScreen implements Screen, Listener {
             game.setScreen(new GameOverScreen(game,msg));
             game.engine.removeAllSystems();
             game.engine.removeAllEntities();
+            stopGame=false;
         }
     }
 
