@@ -49,22 +49,28 @@ public class CustomerOrderSystem extends EntitySystem implements Listener {
         if(decision==0){
             currentOrder= EntityType.BURGER;
             gameEventSignal.dispatch(EventType.REQUEST_BURGER);
+            orderHud.burgerRecipe.setVisible(true);
             // Fire Event Request Burger
         }
         else if(decision==1){
             currentOrder= EntityType.SALAD;
             gameEventSignal.dispatch(EventType.REQUEST_SALAD);
+            orderHud.saladRecipe.setVisible(true);
+            
             // Fire Event Request Salad
         }
     }
 
     public void updateDisplays(){
         this.topHud.setCustomersRemaining(customersRemaining);
+        
     }
 
     @Override
     public void receive(Signal signal, Object object) {
         if(object.equals(EventType.ORDER_COMPLETED)){
+            orderHud.saladRecipe.setVisible(false);
+            orderHud.burgerRecipe.setVisible(false);
             System.out.println("Order completed!");
             customersRemaining--;
             if(customersRemaining==0){
