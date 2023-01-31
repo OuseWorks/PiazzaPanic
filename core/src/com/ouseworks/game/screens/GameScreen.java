@@ -49,7 +49,7 @@ public class GameScreen implements Screen, Listener {
         entityFactory.createCook(900, 300, "Chef1.png", true);
         entityFactory.createCook(900, 500, "Chef2.png", false);
 
-        entityFactory.createCustomer(600, 600, game.engine.getEntities().get(0), "customer.png");
+        entityFactory.createCustomer(650, 600, "customer.png");
     }
 
     public void render(float delta) {
