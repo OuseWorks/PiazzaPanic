@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.signals.Signal;
 import com.badlogic.ashley.utils.ImmutableArray;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -13,6 +14,8 @@ import com.ouseworks.game.components.ClickableComponent;
 import com.ouseworks.game.components.MoveableComponent;
 import com.ouseworks.game.components.PositionComponent;
 import com.ouseworks.game.components.RenderComponent;
+import com.ouseworks.game.ecs.EventType;
+import com.ouseworks.game.scenes.InventoryHud;
 
 public class MoveEntitySystem extends EntitySystem {
     private ComponentMapper<PositionComponent> posComp = ComponentMapper.getFor(PositionComponent.class);
@@ -21,9 +24,12 @@ public class MoveEntitySystem extends EntitySystem {
     private int currentChef = 0;
     private TiledMapTileLayer collisionLayer;
     private Engine engine;
+    private Signal gameEventSignal;
 
-    public MoveEntitySystem(TiledMapTileLayer collisionLayer) {
+    public MoveEntitySystem(TiledMapTileLayer collisionLayer, Signal gameEventSignal) {
         this.collisionLayer = collisionLayer;
+        this.gameEventSignal=gameEventSignal;
+
     }
 
     @Override
@@ -49,7 +55,6 @@ public class MoveEntitySystem extends EntitySystem {
             }
             players.get(currentChef).add(engine.createComponent(MoveableComponent.class));
 
-            System.out.println(currentChef);
         }
 
         // player movement of currently selected chef
