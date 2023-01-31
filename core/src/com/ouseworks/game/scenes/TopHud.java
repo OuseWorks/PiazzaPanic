@@ -13,8 +13,6 @@ public class TopHud {
     public Stage stage;
     private float timer;
     public float timeTaken;
-    private int repPoints;
-    private int customersRemaining;
     Label timerLabel;
     Label timeTakenLabel;
     Label repPointsLabel;

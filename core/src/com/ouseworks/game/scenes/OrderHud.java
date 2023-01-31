@@ -17,7 +17,6 @@ public class OrderHud{
     public Stage stage;
     public Label burgerRecipe;
     public Label saladRecipe;
-    // private Viewport viewport;
 
     private Window orderWindow;
 
@@ -37,7 +36,7 @@ public class OrderHud{
         table.setFillParent(true);
         burgerRecipe = new Label("Burger x1: \n Cooked Patty x1 \n Lettuce x 1 \n Bun x1", new Label.LabelStyle(font,Color.GOLD));
         saladRecipe = new Label("Salad x1: \n Chopped Onion x1 \n Chopped Lettuce x1 \n Chopped Tomato x1", new Label.LabelStyle(font,Color.GOLD));
-        // table.center().padRight(100);
+
 
         burgerRecipe.setVisible(false);
         saladRecipe.setVisible(false);
@@ -56,30 +55,10 @@ public class OrderHud{
         // Insert update logic.
     }
 
-    // public void updateSalad(EntityType currentOrder){
-        
-    //     orderWindow.add(saladRecipe);
-        
-    // }
 
 
     public void dispose() {
         stage.dispose();
     }
-
-    // @Override
-    // public void receive(Signal signal, Object object){
-    //     if(object.equals(EventType.REQUEST_BURGER)){
-    //         orderWindow.getCell(burgerRecipe).getActor().setVisible(true);
-    //     }
-    //     if(object.equals(EventType.REQUEST_SALAD)){
-    //         // saladRecipe.setVisible(true);
-    //         orderWindow.add(saladRecipe);
-    //     }
-    //     if(object.equals(EventType.ORDER_COMPLETED)){
-    //         orderWindow.clear();
-    //     }
-
-    // }
 
 }

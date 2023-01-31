@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 public class HelpWindow {
 
     public Stage stage;
-    // private Viewport viewport;
 
     private Window helpWindow;
     private Label helpText;
