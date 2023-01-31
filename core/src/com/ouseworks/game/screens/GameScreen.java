@@ -1,5 +1,6 @@
 package com.ouseworks.game.screens;
 
+import com.badlogic.ashley.signals.Listener;
 import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.ouseworks.game.*;
+import com.ouseworks.game.ecs.EventType;
 import com.ouseworks.game.scenes.Ingredients;
 import com.ouseworks.game.scenes.InventoryHud;
 import com.ouseworks.game.scenes.OrderHud;
@@ -22,7 +24,7 @@ import com.ouseworks.game.systems.ordering.CustomerCounterSystem;
 import com.ouseworks.game.systems.ordering.CustomerOrderSystem;
 import com.ouseworks.game.systems.preparation.FoodPreparationSystem;
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen, Listener {
     final PiazzaPanicGame game;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
@@ -37,11 +39,12 @@ public class GameScreen implements Screen {
     private EntityFactory entityFactory;
 
     private Signal gameEventSignal;
-
+    boolean stopGame=false;
     public GameScreen(final PiazzaPanicGame game) {
         this.game = game;
         this.entityFactory = new EntityFactory(game.engine);
         this.gameEventSignal = new Signal();
+        gameEventSignal.add(this);
 
         entityFactory.createCook(900, 300, "Chef1.png", true);
         entityFactory.createCook(900, 500, "Chef2.png", false);
@@ -65,6 +68,13 @@ public class GameScreen implements Screen {
         orderHud.stage.draw();
         ingredients.stage.draw();
         inventory.stage.draw();
+
+        if(stopGame){
+            String msg = "You finished the game in " + topHud.timeTaken + " seconds";
+            game.setScreen(new GameOverScreen(game,msg));
+            game.engine.removeAllSystems();
+            game.engine.removeAllEntities();
+        }
     }
 
     @Override
@@ -135,6 +145,13 @@ public class GameScreen implements Screen {
     public void dispose() {
         map.dispose();
         renderer.dispose();
+        hudStage.dispose();
     }
 
+    @Override
+    public void receive(Signal signal, Object object) {
+        if(object.equals(EventType.GAME_FINISHED)){
+            stopGame=true;
+        }
+    }
 }

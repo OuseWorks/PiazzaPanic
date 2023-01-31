@@ -85,5 +85,9 @@ public class CustomerOrderSystem extends EntitySystem implements Listener {
                 updateDisplays();
             }
         }
+
+        if(object.equals(EventType.GAME_FINISHED)){
+            System.out.println("Game finished!");
+        }
     }
 }
