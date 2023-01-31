@@ -51,4 +51,9 @@ public class MusicSystem extends EntitySystem implements Listener {
             muted = !muted;
         }
     }
+
+    @Override
+    public void removedFromEngine(Engine engine){
+        bgm.dispose();
+    }
 }
