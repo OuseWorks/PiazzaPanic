@@ -1,5 +1,6 @@
 package com.ouseworks.game.scenes;
 
+import com.badlogic.ashley.signals.Signal;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,6 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.ouseworks.game.ecs.EntityType;
+import com.ouseworks.game.ecs.EventType;
 
 public class PreparationWindow {
     public Stage stage;
@@ -24,7 +27,8 @@ public class PreparationWindow {
     public Label assembleBurgerLabel;
     public Label assembleSaladLabel;
 
-    public PreparationWindow(Stage stage){
+    public PreparationWindow(Stage stage, Signal gameEventSignal){
+
         this.stage = stage;
         Skin skin = new Skin(Gdx.files.internal("OrderSkin/orderSkin.json"));
 
@@ -80,8 +84,54 @@ public class PreparationWindow {
         table.row();
         table.add(closeButton);
         prepWindow.add(table);
-
         stage.addActor(prepWindow);
+        final Signal signal = gameEventSignal;
+        chopLettuce.addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ChangeEvent click, Actor actor) {
+                signal.dispatch(EventType.CHOP_LETTUCE);
+                prepWindow.remove();
+            }
+
+        });
+        chopTomato.addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ChangeEvent click, Actor actor) {
+                signal.dispatch(EventType.CHOP_TOMATO);
+                prepWindow.remove();
+            }
+
+        });
+        chopOnion.addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ChangeEvent click, Actor actor) {
+                signal.dispatch(EventType.CHOP_ONION);
+                prepWindow.remove();
+            }
+
+        });
+        assembleBurger.addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ChangeEvent click, Actor actor) {
+                signal.dispatch(EventType.ASSEMBLE_BURGER);
+                prepWindow.remove();
+            }
+
+        });
+        assembleSalad.addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ChangeEvent click, Actor actor) {
+                signal.dispatch(EventType.ASSEMBLE_SALAD);
+                prepWindow.remove();
+            }
+
+        });
+
 
     }
 }
