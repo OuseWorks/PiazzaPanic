@@ -1,6 +1,8 @@
 package com.ouseworks.game.scenes;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -12,6 +14,7 @@ public class HelpWindow {
     // private Viewport viewport;
 
     private Window helpWindow;
+    private Label helpText;
 
     public HelpWindow(Stage stage) {
         this.stage = stage;
@@ -19,12 +22,12 @@ public class HelpWindow {
 
         // Add a window with a table inside it.
         // Then add the dynamic information inside the table.
-        Stack table = new Stack();
+        Table table = new Table();
         helpWindow = new Window("Help", skin);
-        helpWindow.setSize(200, 500);
+        helpWindow.setSize(500, 500);
         helpWindow.setPosition(stage.getWidth() / 2, stage.getHeight() / 2);
         TextButton closeButton = new TextButton("Close", skin);
-        closeButton.bottom().center();
+        closeButton.bottom();
 
         closeButton.addListener(new ChangeListener() {
             @Override
@@ -33,9 +36,14 @@ public class HelpWindow {
             }
         });
 
-        table.addActor(closeButton);
-        helpWindow.add(table);
+        BitmapFont font = new BitmapFont();
 
+        helpText = new Label("press space to open station and serve food, m to mute.", new Label.LabelStyle(font, Color.BLUE));
+        table.add(helpText).center();
+        helpText.setPosition(table.getWidth()/2,table.getHeight()/2);
+        helpWindow.add(table);
+        table.row();
+        table.add(closeButton);
         stage.addActor(helpWindow);
     }
 

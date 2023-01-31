@@ -23,6 +23,7 @@ public class CookingStationSystem extends EntitySystem implements Listener {
     private Engine engine;
     private Entity currentChef;
     private ComponentMapper<InventoryComponent> inv = ComponentMapper.getFor(InventoryComponent.class);
+    Sound sizzleSfx = Gdx.audio.newSound(Gdx.files.internal("sizzle.ogg"));
     Sound sighSfx = Gdx.audio.newSound(Gdx.files.internal("sigh.ogg"));
 
     public CookingStationSystem(Signal signal, Stage stage) {
@@ -49,6 +50,7 @@ public class CookingStationSystem extends EntitySystem implements Listener {
                 inv.get(currentChef).items.remove(EntityType.PATTY);
                 inv.get(currentChef).items.add(EntityType.COOKED_PATTY);
                 signal.dispatch(EventType.UPDATE_INVENTORY);
+                sizzleSfx.play();
             } else {
                 sighSfx.play();
             }

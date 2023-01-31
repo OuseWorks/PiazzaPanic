@@ -24,10 +24,13 @@ public class PlayerInputProcessor extends InputAdapter {
         }
 
         if(keyCode == Input.Keys.CONTROL_LEFT){
-            //System.out.println("the chef"+engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0).getComponent(RenderComponent.class).visual);
             gameEventSignal.dispatch(EventType.UPDATE_INVENTORY);
-
         }
+
+        if(keyCode == Input.Keys.M){
+            gameEventSignal.dispatch(EventType.TOGGLE_MUSIC);
+        }
+
         return true;
     }
 }

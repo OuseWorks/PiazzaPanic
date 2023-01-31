@@ -12,7 +12,6 @@ import com.ouseworks.game.components.PositionComponent;
 import com.ouseworks.game.ecs.EntityType;
 import com.ouseworks.game.ecs.EventType;
 import com.ouseworks.game.scenes.Ingredients;
-import com.ouseworks.game.*;
 
 public class DetectInteractionSystem extends EntitySystem implements Listener {
     Signal gameEventSignal;
@@ -25,6 +24,8 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
 
     ComponentMapper<InteractableComponent> ic = ComponentMapper.getFor(InteractableComponent.class);
     ComponentMapper<PositionComponent> pc = ComponentMapper.getFor(PositionComponent.class);
+    
+    Sound tapSfx = Gdx.audio.newSound(Gdx.files.internal("tap.ogg"));
 
     public DetectInteractionSystem(Signal gameEventSignal) {
         gameEventSignal.add(this);
@@ -40,9 +41,6 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
 
     @Override
     public void receive(Signal signal, Object object) {
-        Sound sfx1 = Gdx.audio.newSound(Gdx.files.internal("tap.ogg"));
-        sfx1.play();
-
         currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
 
         if (object.equals(EventType.CHECK_INTERACTIONS)) {
@@ -59,6 +57,7 @@ public class DetectInteractionSystem extends EntitySystem implements Listener {
                     System.out.println("chef interacting with" + ic.get(station).type);
                     if (ic.get(station).type == EntityType.INGREDIENT_STATION) {
                         Ingredients.ingredientWindow.setVisible(true);
+                        tapSfx.play();
                     }
 
                     if (ic.get(station).type == EntityType.PREPARATION_STATION) {
