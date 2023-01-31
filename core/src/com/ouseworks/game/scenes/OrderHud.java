@@ -36,14 +36,14 @@ public class OrderHud{
         table.top();
         table.setFillParent(true);
         burgerRecipe = new Label("Burger x1: \n Cooked Patty x1 \n Lettuce x 1 \n Bun x1", new Label.LabelStyle(font,Color.GOLD));
-        saladRecipe = new Label("Salad x1: \n Chopped Onion x1 \n Chopped Lettuce x 1 \n Chopped Tomato x1", new Label.LabelStyle(font,Color.GOLD));
+        saladRecipe = new Label("Salad x1: \n Chopped Onion x1 \n Chopped Lettuce x1 \n Chopped Tomato x1", new Label.LabelStyle(font,Color.GOLD));
         // table.center().padRight(100);
 
         burgerRecipe.setVisible(false);
         saladRecipe.setVisible(false);
-        // burgerRecipe.setPosition(2, stage.getHeight()/2);
+
         orderWindow.add(burgerRecipe).padLeft(7);
-        orderWindow.add(saladRecipe).padLeft(7);
+        orderWindow.add(saladRecipe);
         
 
         orderWindow.addActor(table);
