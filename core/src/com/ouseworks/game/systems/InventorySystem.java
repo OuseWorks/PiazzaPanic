@@ -42,6 +42,8 @@ public class InventorySystem  extends EntitySystem implements Listener{
     public void addedToEngine(Engine engine){
         currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
         this.engine = engine;
+        currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
+
 
     }
 
@@ -70,9 +72,7 @@ public class InventorySystem  extends EntitySystem implements Listener{
 
     @Override
     public void receive(Signal signal, Object object) {
-        // When ingredient station menu button clicked
-        // the object will be the thing that needs to be added
-        // to inventory. 
+
         if(object instanceof EntityType){
             currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
             inv.get(currentChef).items.add((EntityType)object);
@@ -83,8 +83,6 @@ public class InventorySystem  extends EntitySystem implements Listener{
 
         if(object.equals(EventType.UPDATE_INVENTORY)){
             currentChef = engine.getEntitiesFor(Family.all(MoveableComponent.class).get()).get(0);
-
-            System.out.println("switching inventories");
             updateInventoryHud(currentChef);
         }
 
